@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Xml.Linq;
 
 public class Questions : ReadExcel
 {
@@ -12,14 +13,22 @@ public class Questions : ReadExcel
     [SerializeField] private GameObject buttonQuestion;
     [SerializeField] private TextAsset excelText;
     [SerializeField] int numRowExcel;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private Transform finalPositionInside, finalPositionExit;
+    private SceneEffects sceneEffects;
     private float timeToChars = 0.04f;
     public float initialQuestionTime;
     public float currentQuestionTime;
     public float timeElapsed = 0;
     private bool changeTimeElapsed;
+    private bool inGame;
+
+
 
     private void Start()
     {
+        sceneEffects = GetComponent<SceneEffects>();
+        inGame = false;
         inDialogue = false;
         ReadExcelDialogues(excelText, numRowExcel);
         currentQuestionTime = initialQuestionTime;
@@ -30,7 +39,33 @@ public class Questions : ReadExcel
         ModifyTimeQuestion();
         CallNullAnswers();
         ChangeTimeElpased();
+        MovementInScene();
+        MovementExitScene();
+
+
+        if (finalPositionInside.position == transform.position && !inGame)
+        {
+            ActivateButtonQuestion();
+            inGame = true;
+        }
     }
+
+    private void MovementInScene()
+    {
+        if (!inGame)
+        {
+            sceneEffects.MovementsInGame(finalPositionInside.position, movementSpeed);
+        }
+    }
+    private void MovementExitScene()
+    {
+        if (AnswerCounter.numIncorrectAnswers > answer_a.Length / 3)
+        {
+            sceneEffects.MovementsInGame(finalPositionExit.position, movementSpeed);
+            DesactivateButtonQuestion();
+        }
+    }
+
     private void CallNullAnswers()
     {
         if (questionComplete)
@@ -122,6 +157,10 @@ public class Questions : ReadExcel
 
     private void ModifyTimeQuestion()
     {
-        currentQuestionTime = initialQuestionTime * (1.0f - AnswerCounter.numIncorrectAnswers / 5.0f);
+        currentQuestionTime = initialQuestionTime * (1.0f - AnswerCounter.numIncorrectAnswers / 2.0f);
+        Debug.Log(currentQuestionTime);
     }
+
+    
+
 }

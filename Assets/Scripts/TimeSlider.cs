@@ -22,18 +22,15 @@ public class TimeSlider : MonoBehaviour
         if (question.questionComplete && !AnswerCounter.questionAnswered)
         {
             timeSlider.value = initialValueSlider - question.timeElapsed;
-            Debug.Log("1");
         }
         else if (!question.questionComplete || AnswerCounter.questionAnswered && AnswerCounter.numIncorrectAnswers == 0)
         {
             timeSlider.value = initialValueSlider;
-            Debug.Log("2");
         }
         else if (!question.questionComplete || AnswerCounter.questionAnswered && AnswerCounter.numIncorrectAnswers > 0)
         {
             timeSlider.maxValue = question.currentQuestionTime;
             initialValueSlider = question.currentQuestionTime;
-            Debug.Log("3");
         }
         
     }

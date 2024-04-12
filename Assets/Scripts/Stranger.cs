@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class Stranger : SceneEffects
 {
-    [SerializeField] private Vector3 rightPosition;
     [SerializeField] private float velocityMovement;
     [SerializeField] private GameObject startButton, questionSection, answerSection;
-    private bool moveStranger = true;
-    void Start()
-    {
+    private bool moveStranger = true; 
+    [SerializeField] private Transform finalPosition;
 
-    }
+
     public void Update()
     {
         if (!moveStranger)
         {
             MoveRight();
         }
-        if (transform.position == rightPosition)
+        if (transform.position == finalPosition.position)
         {
             moveStranger = true;
             ActivateQuestionSection();
             ActivateAnswerSection();
         }
+        
     }
     public void MoveRight()
     {
-        MovementsInGame(rightPosition, velocityMovement);
+        MovementsInGame(finalPosition.position, velocityMovement);
     }
     public void ButtonStart()
     {

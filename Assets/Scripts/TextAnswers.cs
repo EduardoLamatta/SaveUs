@@ -42,11 +42,11 @@ public class TextAnswers : ButtonsAnswer
     {
         showAnswers = true;
         AnswerCounter.questionAnswered = false;
-        //slider.SetActive(false);
+        slider.SetActive(false);
     }
     private void AnswerInButtons()
     {
-        //slider.SetActive(true);
+        slider.SetActive(true);
         textButtons[0].text = answer_a[numAnswers];
         textButtons[1].text = answer_b[numAnswers];
         textButtons[2].text = answer_c[numAnswers];
