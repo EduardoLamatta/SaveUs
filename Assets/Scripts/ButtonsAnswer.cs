@@ -41,9 +41,9 @@ public class ButtonsAnswer : ReadExcel
         }
     }
 
-    public void DeactivateButtons(GameObject[] buttonsAnswers, Questions dialogue)
+    public void DeactivateButtons(GameObject[] buttonsAnswers, Questions questions)
     {
-        if (!dialogue.questionComplete || AnswerCounter.questionAnswered)
+        if (!questions.questionComplete || AnswerCounter.questionAnswered || questions.currentQuestionTime <= 0)
         {
             for (int i = 0; i < buttonsAnswers.Length; i++)
             {
@@ -53,7 +53,7 @@ public class ButtonsAnswer : ReadExcel
     }
     public void ActivateButtons(GameObject[] buttonsAnswers, Questions dialogue)
     {
-        if (numAnswers >= 0 && dialogue.questionComplete && !AnswerCounter.questionAnswered)
+        if (numAnswers >= 0 && dialogue.questionComplete && !AnswerCounter.questionAnswered && dialogue.currentQuestionTime > 0)
         {
             for (int i = 0; i < buttonsAnswers.Length; i++)
             {
@@ -62,7 +62,6 @@ public class ButtonsAnswer : ReadExcel
         }
 
     }
-
     public void ClearListButtons(List<Transform> buttonList, List<int> indexButtonRandom, List<int> numButtonList)
     {
         numButtonList.Clear();

@@ -11,25 +11,43 @@ public class TextAnswers : ButtonsAnswer
     [SerializeField] List<int> numButtonList = new List<int>();
     [SerializeField] private TextMeshProUGUI[] textButtons;
     [SerializeField] private Transform layoutButtons;
-    [SerializeField] private Questions dialogue;
+    [SerializeField] private Questions questions;
     [SerializeField] private GameObject buttonQuestion;
     [SerializeField] private TextAsset excelText;
     [SerializeField] int numRowExcel;
     [SerializeField] public GameObject slider;
+    [SerializeField] private float effectInterval;
+    [SerializeField] private float effectInterval1;
+    [SerializeField] private float timeDeactivate;
+    public float time;
     private bool showAnswers;
+    private bool algo;
     private void Start()
     {
         layoutButtons = gameObject.transform;
-        DeactivateButtons(buttonsAnswers, dialogue);
+        DeactivateButtons(buttonsAnswers, questions);
         AddButtonChildren(buttonList, layoutButtons);
         ReadExcelDialogues(excelText, numRowExcel);
     }
     private void Update()
     {
-        DeactivateButtons(buttonsAnswers, dialogue);
-        ActivateButtons(buttonsAnswers, dialogue);
-
-        if (numAnswers < tableSize && dialogue.questionComplete && showAnswers)
+        if (time >= timeDeactivate)
+        {
+            DeactivateButtons(buttonsAnswers, questions);
+        }
+        
+        if (AnswerCounter.questionAnswered)
+        {
+            time += Time.deltaTime;
+            if (time <= timeDeactivate && !algo)
+            {
+                StartCoroutine(EffectCorrectAnswer());
+            }
+        }
+        
+        ActivateButtons(buttonsAnswers, questions);
+        
+        if (numAnswers < tableSize && questions.questionComplete && showAnswers)
         {
             AddIndexButtons(buttonList, numButtonList);
             RandomIndexList(buttonsAnswers, indexButtonRandom, numButtonList);
@@ -37,6 +55,7 @@ public class TextAnswers : ButtonsAnswer
             AnswerInButtons();
             AddButtonChildren(buttonList, layoutButtons);
         }
+        
     }
     public void ShowAswersButton()
     {
@@ -55,6 +74,24 @@ public class TextAnswers : ButtonsAnswer
         ClearListButtons(buttonList, indexButtonRandom, numButtonList);
     }
 
+    private IEnumerator EffectCorrectAnswer()
+    {
+        DeactivateButtons(buttonsAnswers, questions);
+        algo = true;
+        for (int i = 0; i < 7; i++) 
+        {
+            buttonsAnswers[2].SetActive(false);
+            yield return new WaitForSeconds(effectInterval);
+            buttonsAnswers[2].SetActive(true);
+            yield return new WaitForSeconds(effectInterval1);
 
+        }
+    }
+
+    public void DisallowEffect()
+    {
+        algo = false;
+        time = 0;
+    }
 
 }

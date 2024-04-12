@@ -21,7 +21,9 @@ public class Questions : ReadExcel
     public float currentQuestionTime;
     public float timeElapsed = 0;
     private bool changeTimeElapsed;
-    private bool inGame;
+    public bool inGame;
+    private bool  answerSectionInGame;
+    private bool  activateQuestionButtonBegin;
 
 
 
@@ -32,6 +34,7 @@ public class Questions : ReadExcel
         inDialogue = false;
         ReadExcelDialogues(excelText, numRowExcel);
         currentQuestionTime = initialQuestionTime;
+        DeactivateButtonQuestion();
     }
 
     private void Update()
@@ -45,8 +48,21 @@ public class Questions : ReadExcel
 
         if (finalPositionInside.position == transform.position && !inGame)
         {
-            ActivateButtonQuestion();
             inGame = true;
+
+            
+        }
+
+        if (PeopleController.inDialoguePeople && !activateQuestionButtonBegin)
+        {
+            ActivateButtonQuestion();
+            activateQuestionButtonBegin = true;
+        }
+
+
+        if (ButtonsAnswer.numAnswers == answer_a.Length || currentQuestionTime <= 0)
+        {
+            answerSectionInGame = true;
         }
     }
 
@@ -59,11 +75,12 @@ public class Questions : ReadExcel
     }
     private void MovementExitScene()
     {
-        if (AnswerCounter.numIncorrectAnswers > answer_a.Length / 3)
+        if (answerSectionInGame)
         {
             sceneEffects.MovementsInGame(finalPositionExit.position, movementSpeed);
-            DesactivateButtonQuestion();
+            DeactivateButtonQuestion();
         }
+        
     }
 
     private void CallNullAnswers()
@@ -84,7 +101,7 @@ public class Questions : ReadExcel
     {
         if (AnswerCounter.questionAnswered && !changeTimeElapsed)
         {
-            timeElapsed = currentQuestionTime - 5;
+            timeElapsed = initialQuestionTime - 40;
             changeTimeElapsed = true;
         }
     }
@@ -112,13 +129,6 @@ public class Questions : ReadExcel
             {
                 NextDialogue(dialoguesChar, dialogueText);
             }
-            else
-            {
-                StopAllCoroutines();
-                dialogueText.text = dialoguesChar[lineIndex];
-                questionComplete = true;
-            }
-
         }
     }
 
@@ -134,7 +144,7 @@ public class Questions : ReadExcel
 
     private IEnumerator DialogueSystem(string[] dialoguesChar, TextMeshProUGUI dialogueText)
     {
-        DesactivateButtonQuestion();
+        DeactivateButtonQuestion();
         dialogueText.text = string.Empty;
         inDialogue = true;
         foreach (char ch in dialoguesChar[lineIndex])
@@ -145,7 +155,7 @@ public class Questions : ReadExcel
         questionComplete = true;
     }
 
-    private void DesactivateButtonQuestion()
+    private void DeactivateButtonQuestion()
     {
         buttonQuestion.SetActive(false);
 
@@ -157,8 +167,7 @@ public class Questions : ReadExcel
 
     private void ModifyTimeQuestion()
     {
-        currentQuestionTime = initialQuestionTime * (1.0f - AnswerCounter.numIncorrectAnswers / 2.0f);
-        Debug.Log(currentQuestionTime);
+        currentQuestionTime = initialQuestionTime * (1.0f - AnswerCounter.numIncorrectAnswers / 5.0f);
     }
 
     
