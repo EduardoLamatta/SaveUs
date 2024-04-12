@@ -44,14 +44,14 @@ public class Heart : MonoBehaviour
 
     private void ModifyHeartRate()
     {
-        if (questions.questionComplete && timeElapsedQuestion < questions.currentQuestionTime && !ScriptEachButton.questionAnswered)
+        if (questions.questionComplete && timeElapsedQuestion < questions.currentQuestionTime && !AnswerCounter.questionAnswered)
         {
             timeElapsedQuestion += Time.deltaTime;
-            heartRateFactor = (1 + ScriptEachButton.numIncorrecctAnswers / 2f) + timeElapsedQuestion / 10;
+            heartRateFactor = (1 + AnswerCounter.numIncorrectAnswers / 2f) + timeElapsedQuestion / 10;
         }
         else if (timeElapsedQuestion >= questions.currentQuestionTime)
         {
-            heartRateFactor = 1 + ScriptEachButton.numIncorrecctAnswers / 2f;
+            heartRateFactor = 1 + AnswerCounter.numIncorrectAnswers / 2f;
         }
         if (!questions.questionComplete)
         {

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CorrectAnswer
   - InorrectAnswer
+  - Slider
   layers:
   - Default
   - TransparentFX

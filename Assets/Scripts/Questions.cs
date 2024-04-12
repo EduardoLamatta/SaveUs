@@ -17,6 +17,7 @@ public class Questions : ReadExcel
     public float currentQuestionTime;
     public float timeElapsed = 0;
     private bool changeTimeElapsed;
+
     private void Start()
     {
         inDialogue = false;
@@ -40,13 +41,13 @@ public class Questions : ReadExcel
             {
                 ActivateButtonQuestion();
                 timeElapsed = 0;
-                ScriptEachButton.NullAnswer();
+                AnswerCounter.NullAnswer();
             }
         }
     }
     private void ChangeTimeElpased()
     {
-        if (ScriptEachButton.questionAnswered && !changeTimeElapsed)
+        if (AnswerCounter.questionAnswered && !changeTimeElapsed)
         {
             timeElapsed = currentQuestionTime - 5;
             changeTimeElapsed = true;
@@ -54,10 +55,13 @@ public class Questions : ReadExcel
     }
     public void ShowQuestionButton()
     {
-        StartDialogue(question, quiestionText);
-        questionComplete = false;
-        changeTimeElapsed = false;
-        timeElapsed = 0;
+        if (currentQuestionTime > 0)
+        {
+            StartDialogue(question, quiestionText);
+            questionComplete = false;
+            changeTimeElapsed = false;
+            timeElapsed = 0;
+        }
     }
 
     public void StartDialogue(string[] dialoguesChar, TextMeshProUGUI dialogueText)
@@ -118,6 +122,6 @@ public class Questions : ReadExcel
 
     private void ModifyTimeQuestion()
     {
-        currentQuestionTime = initialQuestionTime * (1 - ScriptEachButton.numIncorrecctAnswers / 5.0f);
+        currentQuestionTime = initialQuestionTime * (1.0f - AnswerCounter.numIncorrectAnswers / 5.0f);
     }
 }

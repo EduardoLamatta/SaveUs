@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SceneEffects : MonoBehaviour
 {
-    public void MovementsInGame(Vector2 initialPosition, Vector2 finalPosition)
+    public void MovementsInGame(Vector3 finalPosition, float velocity)
     {
-        gameObject.transform.position = initialPosition;
+        transform.position = Vector3.MoveTowards(transform.position, finalPosition, velocity);
     }
 
     public void Transparency()

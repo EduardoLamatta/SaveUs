@@ -4,25 +4,42 @@ using UnityEngine;
 
 public class Stranger : SceneEffects
 {
-    [SerializeField] private Vector2 initPosition;
-    [SerializeField] private Vector2 rightPosition;
+    [SerializeField] private Vector3 rightPosition;
+    [SerializeField] private float velocityMovement;
+    [SerializeField] private GameObject startButton, questionSection, answerSection;
+    private bool moveStranger = true;
     void Start()
     {
-        initPosition = transform.position;
-    }
 
-    private void Update()
+    }
+    public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!moveStranger)
         {
             MoveRight();
         }
+        if (transform.position == rightPosition)
+        {
+            moveStranger = true;
+            ActivateQuestionSection();
+            ActivateAnswerSection();
+        }
     }
-
-    private void MoveRight()
+    public void MoveRight()
     {
-        MovementsInGame(initPosition, rightPosition);
+        MovementsInGame(rightPosition, velocityMovement);
     }
-
-
+    public void ButtonStart()
+    {
+        moveStranger = false;
+        startButton.SetActive(false);
+    }
+    public void ActivateQuestionSection()
+    {
+        questionSection.SetActive(true);
+    }
+    public void ActivateAnswerSection()
+    {
+        answerSection.SetActive(true);
+    }
 }

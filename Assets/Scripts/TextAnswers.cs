@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class TextAnswers : ButtonsAnswer
 {
-
     List<Transform> buttonList = new List<Transform>();
     List<int> indexButtonRandom = new List<int>();
     [SerializeField] private GameObject[] buttonsAnswers = new GameObject[3];
@@ -16,6 +15,7 @@ public class TextAnswers : ButtonsAnswer
     [SerializeField] private GameObject buttonQuestion;
     [SerializeField] private TextAsset excelText;
     [SerializeField] int numRowExcel;
+    [SerializeField] public GameObject slider;
     private bool showAnswers;
     private void Start()
     {
@@ -41,10 +41,12 @@ public class TextAnswers : ButtonsAnswer
     public void ShowAswersButton()
     {
         showAnswers = true;
-        ScriptEachButton.questionAnswered = false;
+        AnswerCounter.questionAnswered = false;
+        //slider.SetActive(false);
     }
     private void AnswerInButtons()
     {
+        //slider.SetActive(true);
         textButtons[0].text = answer_a[numAnswers];
         textButtons[1].text = answer_b[numAnswers];
         textButtons[2].text = answer_c[numAnswers];

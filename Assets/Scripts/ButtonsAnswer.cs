@@ -43,7 +43,7 @@ public class ButtonsAnswer : ReadExcel
 
     public void DeactivateButtons(GameObject[] buttonsAnswers, Questions dialogue)
     {
-        if (!dialogue.questionComplete || ScriptEachButton.questionAnswered)
+        if (!dialogue.questionComplete || AnswerCounter.questionAnswered)
         {
             for (int i = 0; i < buttonsAnswers.Length; i++)
             {
@@ -53,7 +53,7 @@ public class ButtonsAnswer : ReadExcel
     }
     public void ActivateButtons(GameObject[] buttonsAnswers, Questions dialogue)
     {
-        if (numAnswers >= 0 && dialogue.questionComplete && !ScriptEachButton.questionAnswered)
+        if (numAnswers >= 0 && dialogue.questionComplete && !AnswerCounter.questionAnswered)
         {
             for (int i = 0; i < buttonsAnswers.Length; i++)
             {
