@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CorrectAnswer
-  - InorrectAnswer
   - Slider
+  - IncorrectAnswer
   layers:
   - Default
   - TransparentFX

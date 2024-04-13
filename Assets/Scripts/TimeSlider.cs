@@ -8,7 +8,7 @@ public class TimeSlider : MonoBehaviour
     [SerializeField] private Slider timeSlider;
     [SerializeField] private Questions question;
     [SerializeField] private float initialValueSlider;
-    private void Start()
+    private void Awake()
     {
         timeSlider = GetComponent<Slider>();
         initialValueSlider = timeSlider.maxValue;
@@ -23,17 +23,19 @@ public class TimeSlider : MonoBehaviour
         {
             timeSlider.value = initialValueSlider - question.timeElapsed;
         }
-        else if (!question.questionComplete || AnswerCounter.questionAnswered && AnswerCounter.numIncorrectAnswers == 0)
+        if (!question.questionComplete || AnswerCounter.questionAnswered && AnswerCounter.numIncorrectAnswers == 0)
         {
             timeSlider.value = initialValueSlider;
         }
-        else if (!question.questionComplete || AnswerCounter.questionAnswered && AnswerCounter.numIncorrectAnswers > 0)
+    }
+
+    public void TimeSlideMaxValue()
+    {
+        if (!question.questionComplete || AnswerCounter.questionAnswered && AnswerCounter.numIncorrectAnswers > 0)
         {
             timeSlider.maxValue = question.currentQuestionTime;
             initialValueSlider = question.currentQuestionTime;
         }
-        
     }
-
 
 }

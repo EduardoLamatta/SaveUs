@@ -7,21 +7,35 @@ public class AnswerCounter : ButtonsAnswer
     public static float numCorrecctAnswers;
     public static float numIncorrectAnswers;
     public static bool questionAnswered;
+    public static int totalAnswer;
+
+    private void Update()
+    {
+        totalAnswer = (int) (numCorrecctAnswers + numIncorrectAnswers);
+        Debug.Log(totalAnswer);
+    }
     public void CorrectAnswer()
     {
-        if (gameObject.tag == "CorrectAnswer")
+        if (!questionAnswered)
         {
-            numCorrecctAnswers++;
+            if (gameObject.tag == "CorrectAnswer")
+            {
+                numCorrecctAnswers++;
+            }
+            questionAnswered = true;
         }
-        questionAnswered = true;
     }
     public void IncorrectAnswer()
     {
-        if (gameObject.tag == "InorrectAnswer")
+        if (!questionAnswered)
         {
-            numIncorrectAnswers++;
+            if (gameObject.tag == "IncorrectAnswer")
+            {
+                numIncorrectAnswers++;
+            }
+            questionAnswered = true;
         }
-        questionAnswered = true;
+        
     }
     public static void NullAnswer()
     {

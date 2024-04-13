@@ -23,7 +23,7 @@ public class Questions : ReadExcel
     private bool changeTimeElapsed;
     public bool inGame;
     private bool  answerSectionInGame;
-    private bool  activateQuestionButtonBegin;
+    [SerializeField] private PeopleController peopleController;
 
 
 
@@ -49,16 +49,8 @@ public class Questions : ReadExcel
         if (finalPositionInside.position == transform.position && !inGame)
         {
             inGame = true;
-
-            
-        }
-
-        if (PeopleController.inDialoguePeople && !activateQuestionButtonBegin)
-        {
             ActivateButtonQuestion();
-            activateQuestionButtonBegin = true;
         }
-
 
         if (ButtonsAnswer.numAnswers == answer_a.Length || currentQuestionTime <= 0)
         {
@@ -89,11 +81,15 @@ public class Questions : ReadExcel
         {
             timeElapsed += Time.deltaTime;
 
-            if (timeElapsed > currentQuestionTime)
+            if (timeElapsed > currentQuestionTime && !AnswerCounter.questionAnswered)
+            {
+                timeElapsed = 0;
+                AnswerCounter.NullAnswer();
+            }
+            if (timeElapsed >= initialQuestionTime)
             {
                 ActivateButtonQuestion();
                 timeElapsed = 0;
-                AnswerCounter.NullAnswer();
             }
         }
     }
@@ -101,7 +97,7 @@ public class Questions : ReadExcel
     {
         if (AnswerCounter.questionAnswered && !changeTimeElapsed)
         {
-            timeElapsed = initialQuestionTime - 40;
+            timeElapsed = initialQuestionTime - 30;
             changeTimeElapsed = true;
         }
     }
@@ -113,13 +109,15 @@ public class Questions : ReadExcel
             questionComplete = false;
             changeTimeElapsed = false;
             timeElapsed = 0;
+            peopleController.Active();
+            peopleController.Deactive();
         }
     }
 
     public void StartDialogue(string[] dialoguesChar, TextMeshProUGUI dialogueText)
     {
 
-        if (lineIndex < dialoguesChar.Length)
+        if (lineIndex < dialoguesChar.Length && PeopleController.allowQuestion)
         {
             if (!inDialogue)
             {
@@ -129,6 +127,10 @@ public class Questions : ReadExcel
             {
                 NextDialogue(dialoguesChar, dialogueText);
             }
+        }
+        if (!PeopleController.allowQuestion)
+        {
+            dialogueText.text = string.Empty;
         }
     }
 
@@ -153,6 +155,7 @@ public class Questions : ReadExcel
             yield return new WaitForSeconds(timeToChars);
         }
         questionComplete = true;
+        
     }
 
     private void DeactivateButtonQuestion()

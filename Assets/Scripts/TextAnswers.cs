@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextAnswers : ButtonsAnswer
 {
     List<Transform> buttonList = new List<Transform>();
     List<int> indexButtonRandom = new List<int>();
     [SerializeField] private GameObject[] buttonsAnswers = new GameObject[3];
+    [SerializeField] private Button[] buttons = new Button[3];
     [SerializeField] List<int> numButtonList = new List<int>();
     [SerializeField] private TextMeshProUGUI[] textButtons;
     [SerializeField] private Transform layoutButtons;
@@ -19,13 +21,16 @@ public class TextAnswers : ButtonsAnswer
     [SerializeField] private float effectInterval;
     [SerializeField] private float effectInterval1;
     [SerializeField] private float timeDeactivate;
+    [SerializeField] private int repeatTimes;
     public float time;
     private bool showAnswers;
-    private bool algo;
+    private bool allowEffectButtons;
+    public bool finishEffectButtons;
+    
     private void Start()
     {
         layoutButtons = gameObject.transform;
-        DeactivateButtons(buttonsAnswers, questions);
+        DeactivateButtons(buttonsAnswers, buttons, questions);
         AddButtonChildren(buttonList, layoutButtons);
         ReadExcelDialogues(excelText, numRowExcel);
     }
@@ -33,19 +38,19 @@ public class TextAnswers : ButtonsAnswer
     {
         if (time >= timeDeactivate)
         {
-            DeactivateButtons(buttonsAnswers, questions);
+            DeactivateButtons(buttonsAnswers, buttons, questions);
         }
         
         if (AnswerCounter.questionAnswered)
         {
             time += Time.deltaTime;
-            if (time <= timeDeactivate && !algo)
+            if (time <= timeDeactivate && !allowEffectButtons)
             {
                 StartCoroutine(EffectCorrectAnswer());
             }
         }
         
-        ActivateButtons(buttonsAnswers, questions);
+        ActivateButtons(buttonsAnswers, buttons, questions);
         
         if (numAnswers < tableSize && questions.questionComplete && showAnswers)
         {
@@ -72,26 +77,28 @@ public class TextAnswers : ButtonsAnswer
         showAnswers = false;
         numAnswers++;
         ClearListButtons(buttonList, indexButtonRandom, numButtonList);
+        
     }
 
     private IEnumerator EffectCorrectAnswer()
     {
-        DeactivateButtons(buttonsAnswers, questions);
-        algo = true;
-        for (int i = 0; i < 7; i++) 
+        DeactivateButtons(buttonsAnswers, buttons, questions);
+        allowEffectButtons = true;
+        for (int i = 0; i < repeatTimes; i++) 
         {
             buttonsAnswers[2].SetActive(false);
             yield return new WaitForSeconds(effectInterval);
             buttonsAnswers[2].SetActive(true);
             yield return new WaitForSeconds(effectInterval1);
-
         }
+        finishEffectButtons = true;
     }
 
     public void DisallowEffect()
     {
-        algo = false;
+        allowEffectButtons = false;
         time = 0;
+        finishEffectButtons = false;
     }
 
 }
