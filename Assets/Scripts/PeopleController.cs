@@ -1,60 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
+using UnityEngine;
 
 public class PeopleController : ReadExcel
 {
-    [SerializeField] private SceneEffects sceneEffects;
-    [SerializeField] private float entryVelocity;
-    [SerializeField] private Transform entryPoint, finalPoint;
-    [SerializeField] private Questions questions;
-    [SerializeField] private GameObject textGameObject;
-    [SerializeField] private TextMeshProUGUI textPeople;
-    [SerializeField] private int numRowInExcel;
-    [SerializeField] private TextAsset excelPhrases;
-    private float time, timePhrases;
-    [SerializeField] private float entryTime, timeNextPhrases;
-    [SerializeField] private float timeNextChar;
+    private protected List<GameObject> peopleList = new List<GameObject>();
+    public bool inDialoguePeople;
+    private bool allowTransformation, completeTransformation;
     private int lineIndex = 0;
     private bool allowEntry;
-    public static bool inDialoguePeople;
-    private Material materialPeople;
-    private Color colorPeople;
+    private float timeElpasedTrandfotmation, time, timePhrases;
+    public static bool allowQuestion;
 
-    [Range(0, 1)]
-    [SerializeField] private float alphaValue;
     void Start()
     {
-        allowEntry = false;
-        sceneEffects = GetComponent<SceneEffects>();
-        textGameObject.SetActive(false);
-        ReadExcelDialogues(excelPhrases, numRowInExcel);
         inDialoguePeople = false;
-
-        //Test color material
-
-        materialPeople = GetComponent<Renderer>().material;
-        colorPeople = materialPeople.color;
+        allowEntry = false;
+        completeTransformation = false;
+        AddPeople();
 
     }
-
-    void Update()
+    private void Update()
+    {   
+        
+    }
+    public void AddPeople()
     {
-        if (questions.inGame)
+        foreach (Transform children in transform)
         {
-            time += Time.deltaTime;
+            peopleList.Add(children.gameObject);
         }
-        if (questions.inGame && time >= entryTime)
+    }
+    public void Deactive()
+    {
+        if (AnswerCounter.totalAnswer > 1)
         {
-            allowEntry = true;
+            peopleList[AnswerCounter.totalAnswer - 1].gameObject.SetActive(false);
         }
+    }
+    public void Active()
+    {
+        peopleList[AnswerCounter.totalAnswer].gameObject.SetActive(true);
+    }
 
-        if (allowEntry)
-        {
-            sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
-        }
-
+    public void StartDialogue(Transform entryPoint, GameObject textGameObject, float timeNextPhrases, TextMeshProUGUI textPeople, float timeNextChar)
+    {
         if (transform.position == entryPoint.position)
         {
             timePhrases += Time.deltaTime;
@@ -62,18 +54,12 @@ public class PeopleController : ReadExcel
             inDialoguePeople = true;
             if (timePhrases >= timeNextPhrases)
             {
-                StartCoroutine(DialogueSystem(question, textPeople));
+                StartCoroutine(DialogueSystem(question, textPeople, timeNextChar));
                 timePhrases = 0;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Transparency(materialPeople, alphaValue);
-        }    
-
     }
-    private IEnumerator DialogueSystem(string[] phrases, TextMeshProUGUI textPeopleGame)
+    public IEnumerator DialogueSystem(string[] phrases, TextMeshProUGUI textPeopleGame, float timeNextChar)
     {
         lineIndex = Random.Range(0, tableSize);
         inDialoguePeople = false;
@@ -84,14 +70,64 @@ public class PeopleController : ReadExcel
             yield return new WaitForSeconds(timeNextChar);
         }
     }
-
-    private void Transparency(Material mat, float alpha)
+    public float Transparency(CanvasRenderer renderer, float speed, TextAnswers textAnswers, float timeTransformation, float alphaValue)
     {
-        colorPeople.a = alphaValue * Time.deltaTime;
-        materialPeople.color = colorPeople;
+        if (AnswerCounter.questionAnswered && alphaValue <= 1 && textAnswers.finishEffectButtons && !allowTransformation)
+        {
+            alphaValue += speed * Time.deltaTime;
+            renderer.SetAlpha(alphaValue);
+            if (alphaValue >= 1 && alphaValue <= 1.1)
+            {
+                allowTransformation = true;
+            }
+        }
+        if (AnswerCounter.questionAnswered && alphaValue >= 0 && textAnswers.finishEffectButtons && allowTransformation)
+        {
+            timeElpasedTrandfotmation += Time.deltaTime;
+            if (timeElpasedTrandfotmation >= timeTransformation)
+            {
+                alphaValue -= speed * Time.deltaTime;
+                renderer.SetAlpha(alphaValue);
+            }
+            if (alphaValue >= 0 && alphaValue <= 0.1)
+            {
+                completeTransformation = true;
+            }
+        }
+        return alphaValue;
     }
-
-
-
-
+    public void TransparencyNull(CanvasRenderer renderer, float alphaValue)
+    {
+        alphaValue = 0;
+        renderer.SetAlpha(alphaValue);
+    }
+    public void EntryInScena(SceneEffects sceneEffects, Transform entryPoint, float entryVelocity)
+    {
+        if (allowEntry && !completeTransformation)
+        {
+            sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
+        }
+    }
+    public void ExitScena(SceneEffects sceneEffects, Transform finalPoint, float entryVelocity)
+    {
+        if (completeTransformation)
+        {
+            sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
+        }
+    }
+    public void BeginGame(Questions questions, float entryTime)
+    {
+        if (questions.inGame)
+        {
+            time += Time.deltaTime;
+        }
+        if (questions.inGame && time >= entryTime)
+        {
+            allowEntry = true;
+        }
+    }
+    public void DeactivateTextGameObject(GameObject textGameObject)
+    {
+        textGameObject.SetActive(false);
+    }
 }
