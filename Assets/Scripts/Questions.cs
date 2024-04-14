@@ -52,7 +52,7 @@ public class Questions : ReadExcel
             ActivateButtonQuestion();
         }
 
-        if (ButtonsAnswer.numAnswers == answer_a.Length || currentQuestionTime <= 0)
+        if (ButtonsAnswer.numAnswers == (int)AnswerCounter.totalAnswer + 1 || currentQuestionTime <= 0)
         {
             answerSectionInGame = true;
         }
@@ -97,7 +97,7 @@ public class Questions : ReadExcel
     {
         if (AnswerCounter.questionAnswered && !changeTimeElapsed)
         {
-            timeElapsed = initialQuestionTime - 30;
+            timeElapsed = initialQuestionTime * 3 / 4;
             changeTimeElapsed = true;
         }
     }
@@ -128,18 +128,15 @@ public class Questions : ReadExcel
                 NextDialogue(dialoguesChar, dialogueText);
             }
         }
-        if (!PeopleController.allowQuestion)
-        {
-            dialogueText.text = string.Empty;
-        }
     }
 
     private void NextDialogue(string[] dialoguesChar, TextMeshProUGUI dialogueText)
     {
-        lineIndex++;
+            lineIndex++;
 
         if (lineIndex < dialoguesChar.Length)
         {
+            Debug.Log("si2");
             StartCoroutine(DialogueSystem(dialoguesChar, dialogueText));
         }
     }

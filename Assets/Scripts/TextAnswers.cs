@@ -9,7 +9,6 @@ public class TextAnswers : ButtonsAnswer
     List<Transform> buttonList = new List<Transform>();
     List<int> indexButtonRandom = new List<int>();
     [SerializeField] private GameObject[] buttonsAnswers = new GameObject[3];
-    [SerializeField] private Button[] buttons = new Button[3];
     [SerializeField] List<int> numButtonList = new List<int>();
     [SerializeField] private TextMeshProUGUI[] textButtons;
     [SerializeField] private Transform layoutButtons;
@@ -30,7 +29,7 @@ public class TextAnswers : ButtonsAnswer
     private void Start()
     {
         layoutButtons = gameObject.transform;
-        DeactivateButtons(buttonsAnswers, buttons, questions);
+        DeactivateButtons(buttonsAnswers, questions);
         AddButtonChildren(buttonList, layoutButtons);
         ReadExcelDialogues(excelText, numRowExcel);
     }
@@ -38,7 +37,7 @@ public class TextAnswers : ButtonsAnswer
     {
         if (time >= timeDeactivate)
         {
-            DeactivateButtons(buttonsAnswers, buttons, questions);
+            DeactivateButtons(buttonsAnswers, questions);
         }
         
         if (AnswerCounter.questionAnswered)
@@ -50,7 +49,7 @@ public class TextAnswers : ButtonsAnswer
             }
         }
         
-        ActivateButtons(buttonsAnswers, buttons, questions);
+        ActivateButtons(buttonsAnswers, questions);
         
         if (numAnswers < tableSize && questions.questionComplete && showAnswers)
         {
@@ -82,7 +81,7 @@ public class TextAnswers : ButtonsAnswer
 
     private IEnumerator EffectCorrectAnswer()
     {
-        DeactivateButtons(buttonsAnswers, buttons, questions);
+        DeactivateButtons(buttonsAnswers, questions);
         allowEffectButtons = true;
         for (int i = 0; i < repeatTimes; i++) 
         {

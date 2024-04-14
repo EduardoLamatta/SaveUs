@@ -22,10 +22,6 @@ public class PeopleController : ReadExcel
         AddPeople();
 
     }
-    private void Update()
-    {   
-        
-    }
     public void AddPeople()
     {
         foreach (Transform children in transform)
@@ -35,14 +31,17 @@ public class PeopleController : ReadExcel
     }
     public void Deactive()
     {
-        if (AnswerCounter.totalAnswer > 1)
+        if (AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3 && (int)AnswerCounter.totalAnswer / 3 >= 1)
         {
-            peopleList[AnswerCounter.totalAnswer - 1].gameObject.SetActive(false);
+            peopleList[(int)AnswerCounter.totalAnswer/3 - 1].gameObject.SetActive(false);
         }
     }
     public void Active()
     {
-        peopleList[AnswerCounter.totalAnswer].gameObject.SetActive(true);
+        if (AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        {
+            peopleList[(int)AnswerCounter.totalAnswer / 3].gameObject.SetActive(true);
+        }
     }
 
     public void StartDialogue(Transform entryPoint, GameObject textGameObject, float timeNextPhrases, TextMeshProUGUI textPeople, float timeNextChar)
@@ -72,26 +71,29 @@ public class PeopleController : ReadExcel
     }
     public float Transparency(CanvasRenderer renderer, float speed, TextAnswers textAnswers, float timeTransformation, float alphaValue)
     {
-        if (AnswerCounter.questionAnswered && alphaValue <= 1 && textAnswers.finishEffectButtons && !allowTransformation)
+        if (AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
-            alphaValue += speed * Time.deltaTime;
-            renderer.SetAlpha(alphaValue);
-            if (alphaValue >= 1 && alphaValue <= 1.1)
+            if (AnswerCounter.questionAnswered && alphaValue <= 1 && textAnswers.finishEffectButtons && !allowTransformation)
             {
-                allowTransformation = true;
-            }
-        }
-        if (AnswerCounter.questionAnswered && alphaValue >= 0 && textAnswers.finishEffectButtons && allowTransformation)
-        {
-            timeElpasedTrandfotmation += Time.deltaTime;
-            if (timeElpasedTrandfotmation >= timeTransformation)
-            {
-                alphaValue -= speed * Time.deltaTime;
+                alphaValue += speed * Time.deltaTime;
                 renderer.SetAlpha(alphaValue);
+                if (alphaValue >= 1 && alphaValue <= 1.1)
+                {
+                    allowTransformation = true;
+                }
             }
-            if (alphaValue >= 0 && alphaValue <= 0.1)
+            if (AnswerCounter.questionAnswered && alphaValue >= 0 && textAnswers.finishEffectButtons && allowTransformation)
             {
-                completeTransformation = true;
+                timeElpasedTrandfotmation += Time.deltaTime;
+                if (timeElpasedTrandfotmation >= timeTransformation)
+                {
+                    alphaValue -= speed * Time.deltaTime;
+                    renderer.SetAlpha(alphaValue);
+                }
+                if (alphaValue >= 0 && alphaValue <= 0.1)
+                {
+                    completeTransformation = true;
+                }
             }
         }
         return alphaValue;
@@ -103,14 +105,14 @@ public class PeopleController : ReadExcel
     }
     public void EntryInScena(SceneEffects sceneEffects, Transform entryPoint, float entryVelocity)
     {
-        if (allowEntry && !completeTransformation)
+        if (allowEntry && !completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
             sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
         }
     }
     public void ExitScena(SceneEffects sceneEffects, Transform finalPoint, float entryVelocity)
     {
-        if (completeTransformation)
+        if (completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
             sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
         }
@@ -129,5 +131,10 @@ public class PeopleController : ReadExcel
     public void DeactivateTextGameObject(GameObject textGameObject)
     {
         textGameObject.SetActive(false);
+    }
+    public int GetPeopleInList()
+    {
+        int peopleInList = peopleList.Count;
+        return peopleInList;
     }
 }

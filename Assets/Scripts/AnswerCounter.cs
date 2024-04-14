@@ -7,11 +7,11 @@ public class AnswerCounter : ButtonsAnswer
     public static float numCorrecctAnswers;
     public static float numIncorrectAnswers;
     public static bool questionAnswered;
-    public static int totalAnswer;
+    public static float totalAnswer;
 
     private void Update()
     {
-        totalAnswer = (int) (numCorrecctAnswers + numIncorrectAnswers);
+        totalAnswer = numCorrecctAnswers + numIncorrectAnswers;
         Debug.Log(totalAnswer);
     }
     public void CorrectAnswer()

@@ -32,6 +32,7 @@ public class People : PeopleController
     }
     void Update()
     {
+        Debug.Log(allowQuestion);
         if (transform.position == entryPoint.position)
         {
             allowQuestion = true;

@@ -9,14 +9,19 @@ public class AnswerSectionController : SceneEffects
     [SerializeField] private Questions questions;
     [SerializeField] private ReadExcel readExcel;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private PeopleController peopleController;
+    private int numPeople;
     private bool sectionAnswerInGame;
 
-
+    private void Start()
+    {
+        SetPeopleInGame();
+    }
     private void Update()
     {
         MovementInsideScene();
         MovementExitScene();
-        if (ButtonsAnswer.numAnswers == 16 || questions.currentQuestionTime <= 0)
+        if (ButtonsAnswer.numAnswers ==  AnswerCounter.totalAnswer + 1 || questions.currentQuestionTime <= 0)
         {
             sectionAnswerInGame = true;
         }
@@ -36,6 +41,12 @@ public class AnswerSectionController : SceneEffects
             MovementsInGame(finalExitPosition.position, movementSpeed);
         }
 
+    }
+
+    private int SetPeopleInGame()
+    {
+        numPeople = peopleController.GetPeopleInList();
+        return numPeople;
     }
 
 

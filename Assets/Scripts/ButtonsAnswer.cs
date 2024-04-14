@@ -42,7 +42,7 @@ public class ButtonsAnswer : ReadExcel
         }
     }
 
-    public void DeactivateButtons(GameObject[] buttonsAnswers, Button[] buttons, Questions questions)
+    public void DeactivateButtons(GameObject[] buttonsAnswers, Questions questions)
     {
         if (!questions.questionComplete || AnswerCounter.questionAnswered || questions.currentQuestionTime <= 0)
         {
@@ -53,7 +53,7 @@ public class ButtonsAnswer : ReadExcel
         }
     }
   
-    public void ActivateButtons(GameObject[] buttonsAnswers, Button[] buttons, Questions dialogue)
+    public void ActivateButtons(GameObject[] buttonsAnswers, Questions dialogue)
     {
         if (numAnswers >= 0 && dialogue.questionComplete && !AnswerCounter.questionAnswered && dialogue.currentQuestionTime > 0)
         {
