@@ -21,7 +21,7 @@ public class AnswerSectionController : SceneEffects
     {
         MovementInsideScene();
         MovementExitScene();
-        if (ButtonsAnswer.numAnswers ==  AnswerCounter.totalAnswer + 1 || questions.currentQuestionTime <= 0)
+        if (ButtonsAnswer.numAnswers ==  12 + 1 || questions.currentQuestionTime <= 0)
         {
             sectionAnswerInGame = true;
         }

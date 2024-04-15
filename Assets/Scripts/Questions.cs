@@ -52,7 +52,7 @@ public class Questions : ReadExcel
             ActivateButtonQuestion();
         }
 
-        if (ButtonsAnswer.numAnswers == (int)AnswerCounter.totalAnswer + 1 || currentQuestionTime <= 0)
+        if (ButtonsAnswer.numAnswers == 12 + 1 || currentQuestionTime <= 0)
         {
             answerSectionInGame = true;
         }
@@ -105,7 +105,7 @@ public class Questions : ReadExcel
     {
         if (currentQuestionTime > 0)
         {
-            StartDialogue(question, quiestionText);
+            StartDialogue(rowExcel1, quiestionText);
             questionComplete = false;
             changeTimeElapsed = false;
             timeElapsed = 0;

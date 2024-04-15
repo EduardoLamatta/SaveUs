@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Rendering;
 
 public class People : PeopleController
 {
-    [SerializeField] private SceneEffects sceneEffects;
+    private SceneEffects sceneEffects;
     [SerializeField] private float entryVelocity;
     [SerializeField] private Transform entryPoint, finalPoint;
     [SerializeField] private Questions questions;
@@ -20,6 +19,8 @@ public class People : PeopleController
     [SerializeField] private float speedChangeAlpha;
     [SerializeField] private TextAnswers textAnswers;
     [SerializeField] private float timeTransformation;
+    [SerializeField] private int numberRow;
+    [SerializeField] private bool randomDialogue;
     [Range(0, 1)]
     [SerializeField] private float alphaValue;
 
@@ -29,10 +30,10 @@ public class People : PeopleController
         ReadExcelDialogues(excelPhrases, numRowInExcel);
         TransparencyNull(peopleRenderer, alphaValue);
         DeactivateTextGameObject(textGameObject);
+        DictionaryRowsInExcel();
     }
     void Update()
     {
-        Debug.Log(allowQuestion);
         if (transform.position == entryPoint.position)
         {
             allowQuestion = true;
@@ -44,7 +45,7 @@ public class People : PeopleController
 
         BeginGame(questions, entryTime);
         EntryInScena(sceneEffects, entryPoint, entryVelocity);
-        StartDialogue(entryPoint, textGameObject, timeNextPhrases, textPeople, timeNextChar);
+        StartDialogue(entryPoint, textGameObject, timeNextPhrases, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue);
         alphaValue = Transparency(peopleRenderer, speedChangeAlpha, textAnswers, timeTransformation, alphaValue);
         ExitScena(sceneEffects, finalPoint, entryVelocity);
     }

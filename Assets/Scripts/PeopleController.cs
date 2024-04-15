@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
 public class PeopleController : ReadExcel
@@ -13,6 +12,7 @@ public class PeopleController : ReadExcel
     private bool allowEntry;
     private float timeElpasedTrandfotmation, time, timePhrases;
     public static bool allowQuestion;
+    private bool strangerDialogue;
 
     void Start()
     {
@@ -44,23 +44,59 @@ public class PeopleController : ReadExcel
         }
     }
 
-    public void StartDialogue(Transform entryPoint, GameObject textGameObject, float timeNextPhrases, TextMeshProUGUI textPeople, float timeNextChar)
+    public void StartDialogue(Transform entryPoint, GameObject textGameObject, float timeNextPhrases, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow)
     {
-        if (transform.position == entryPoint.position)
+        if (transform.position == entryPoint.position && randomAllow)
         {
             timePhrases += Time.deltaTime;
             textGameObject.SetActive(true);
             inDialoguePeople = true;
             if (timePhrases >= timeNextPhrases)
             {
-                StartCoroutine(DialogueSystem(question, textPeople, timeNextChar));
+                StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow));
                 timePhrases = 0;
             }
+            
         }
     }
-    public IEnumerator DialogueSystem(string[] phrases, TextMeshProUGUI textPeopleGame, float timeNextChar)
+    public void StartDialogueStranger(GameObject textGameObject, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, GameObject buttonTextStranger)
     {
-        lineIndex = Random.Range(0, tableSize);
+        if (!randomAllow && lineIndex < rowExcel.Length - 1)
+        {
+            if (!strangerDialogue)
+            {
+                textGameObject.SetActive(true);
+
+                strangerDialogue = true;
+                StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow));
+            }
+            else if (textPeople.text == rowExcel[lineIndex])
+            {
+                NextDialogue(textPeople, timeNextChar, rowExcel, randomAllow);
+            }
+            if (textPeople.text != rowExcel[lineIndex])
+            {
+                DeactivateButtonStranger(buttonTextStranger);
+            }
+        }
+
+    }
+    private void NextDialogue(TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow)
+    {
+        lineIndex++;
+
+        if (lineIndex < rowExcel.Length)
+        {
+            StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow));
+        }
+    }
+    public IEnumerator DialogueSystem(string[] phrases, TextMeshProUGUI textPeopleGame, float timeNextChar, bool randomAllow)
+    {
+        if(randomAllow)
+        {
+            lineIndex = Random.Range(0, tableSize);
+        }
+
         inDialoguePeople = false;
         textPeopleGame.text = string.Empty;
         foreach (char ch in phrases[lineIndex])
@@ -136,5 +172,18 @@ public class PeopleController : ReadExcel
     {
         int peopleInList = peopleList.Count;
         return peopleInList;
+    }
+
+    public int GetIndexText()
+    {
+        return lineIndex;
+    }
+    private void DeactivateButtonStranger(GameObject buttonNextDialogue)
+    {
+        buttonNextDialogue.SetActive(false);
+    }
+    public void ActivateButtonStranger(GameObject buttonNextDialogue)
+    {
+        buttonNextDialogue.SetActive(true);
     }
 }

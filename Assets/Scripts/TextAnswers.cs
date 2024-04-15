@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TextAnswers : ButtonsAnswer
 {
@@ -70,9 +69,9 @@ public class TextAnswers : ButtonsAnswer
     private void AnswerInButtons()
     {
         slider.SetActive(true);
-        textButtons[0].text = answer_a[numAnswers];
-        textButtons[1].text = answer_b[numAnswers];
-        textButtons[2].text = answer_c[numAnswers];
+        textButtons[0].text = rowExcel2[numAnswers];
+        textButtons[1].text = rowExcel3[numAnswers];
+        textButtons[2].text = rowExcel4[numAnswers];
         showAnswers = false;
         numAnswers++;
         ClearListButtons(buttonList, indexButtonRandom, numButtonList);
