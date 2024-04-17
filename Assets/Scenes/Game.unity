@@ -897,7 +897,8 @@ MonoBehaviour:
   timeDeactiveButton: 0
   inGame: 0
   peopleController: {fileID: 1815350849}
-  waitTime: 10
+  waitTime: 15
+  waitTimeAfterReply: 13
 --- !u!114 &218613868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,7 +1247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1581, y: 0}
+  m_AnchoredPosition: {x: -1411, y: 0}
   m_SizeDelta: {x: 840, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &304501311
@@ -1304,7 +1305,7 @@ MonoBehaviour:
   finalInsidePosition: {fileID: 462056548}
   questions: {fileID: 218613867}
   readExcel: {fileID: 304501314}
-  movementSpeed: 150
+  movementSpeed: 250
   peopleController: {fileID: 1815350849}
 --- !u!114 &304501314
 MonoBehaviour:
@@ -1454,8 +1455,7 @@ MonoBehaviour:
   rowExcel4: []
   inDialoguePeople: 1
   timeElpasedTrandfotmation: 0
-  animator: {fileID: 409525947}
-  entryVelocity: 200
+  entryVelocity: 220
   entryPoint: {fileID: 1982004793}
   finalPoint: {fileID: 779004495}
   questions: {fileID: 218613867}
@@ -1474,6 +1474,8 @@ MonoBehaviour:
   randomDialogue: 1
   rangeMin: 0
   rangeMax: 1
+  numPeople: 1
+  animator: {fileID: 409525947}
   alphaValue: 0
 --- !u!114 &409525946
 MonoBehaviour:
@@ -3898,8 +3900,7 @@ MonoBehaviour:
   rowExcel4: []
   inDialoguePeople: 1
   timeElpasedTrandfotmation: 0
-  animator: {fileID: 1350584723}
-  entryVelocity: 200
+  entryVelocity: 220
   entryPoint: {fileID: 1982004793}
   finalPoint: {fileID: 779004495}
   questions: {fileID: 218613867}
@@ -3918,6 +3919,8 @@ MonoBehaviour:
   randomDialogue: 1
   rangeMin: 2
   rangeMax: 3
+  numPeople: 3
+  animator: {fileID: 1350584723}
   alphaValue: 0
 --- !u!114 &1350584720
 MonoBehaviour:
@@ -5276,7 +5279,6 @@ MonoBehaviour:
   rowExcel4: []
   inDialoguePeople: 0
   timeElpasedTrandfotmation: 0
-  animator: {fileID: 0}
 --- !u!1 &1827251233
 GameObject:
   m_ObjectHideFlags: 0
@@ -5685,8 +5687,7 @@ MonoBehaviour:
   rowExcel4: []
   inDialoguePeople: 1
   timeElpasedTrandfotmation: 0
-  animator: {fileID: 2002660234}
-  entryVelocity: 200
+  entryVelocity: 220
   entryPoint: {fileID: 1982004793}
   finalPoint: {fileID: 779004495}
   questions: {fileID: 218613867}
@@ -5705,6 +5706,8 @@ MonoBehaviour:
   randomDialogue: 1
   rangeMin: 1
   rangeMax: 2
+  numPeople: 2
+  animator: {fileID: 2002660234}
   alphaValue: 0
 --- !u!114 &2002660231
 MonoBehaviour:
@@ -6059,15 +6062,14 @@ MonoBehaviour:
   rowExcel4: []
   inDialoguePeople: 0
   timeElpasedTrandfotmation: 0
-  animator: {fileID: 0}
-  velocityMovement: 200
+  velocityMovement: 240
   startButton: {fileID: 1789595244}
   questionSection: {fileID: 218613861}
   answerSection: {fileID: 304501309}
   finalPosition: {fileID: 477658359}
   entryPoint: {fileID: 2106475028}
   finalPoint: {fileID: 477658359}
-  timeNextChar: 0
+  timeNextChar: 0.05
   entryTime: 0
   timeNextPhrases: 1
   textGameObject: {fileID: 422641099}

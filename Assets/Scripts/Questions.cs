@@ -47,12 +47,9 @@ public class Questions : ReadExcel
         MovementInScene();
         MovementExitScene();
 
-        if (!PeopleController.allowQuestion)
-        {
-            HideText(textQuestions);
-        }
-        else
-        {
+        
+        if (PeopleController.allowQuestion)
+        {       
             ShowText(textQuestions);
         }
 
@@ -134,12 +131,17 @@ public class Questions : ReadExcel
             peopleController.Active();
             peopleController.Deactive();
         }
+
+        if (!PeopleController.allowQuestion)
+        {
+            HideText(textQuestions);
+        }
     }
 
     public void StartDialogue(string[] dialoguesChar, TextMeshProUGUI dialogueText)
     {
 
-        if (lineIndex < dialoguesChar.Length && PeopleController.allowQuestion)
+        if (lineIndex < dialoguesChar.Length - 1 && PeopleController.allowQuestion)
         {
             if (!inDialogue)
             {
@@ -159,7 +161,7 @@ public class Questions : ReadExcel
     {
             lineIndex++;
 
-        if (lineIndex < dialoguesChar.Length)
+        if (lineIndex < dialoguesChar.Length - 1)
         {
             StartCoroutine(DialogueSystem(dialoguesChar, dialogueText));
         }
@@ -198,24 +200,12 @@ public class Questions : ReadExcel
     {
         Color textColor = text.color;
         textColor.a = 0;
-        Debug.Log("a0");
-        /*if (AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
-        {
-            textColor.a = 0;
-            Debug.Log("a0");
-        }
-        if (!AnswerCounter.questionAnswered && AnswerCounter.totalAnswer / 3 != (int)AnswerCounter.totalAnswer / 3)
-        {
-            textColor.a = 1;
-            Debug.Log("a1");
-        }*/
         text.color = textColor;
     }
     private void ShowText(TMP_Text text)
     {
         Color textColor = text.color;
         textColor.a = 1;
-        Debug.Log("a1");
         text.color = textColor;
     }
 

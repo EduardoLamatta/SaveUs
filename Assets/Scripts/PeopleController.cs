@@ -14,11 +14,9 @@ public class PeopleController : ReadExcel
     [SerializeField] private float timeElpasedTrandfotmation;
     public static bool allowQuestion;
     private bool strangerDialogue;
-    [SerializeField] private Animator animator;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
         inDialoguePeople = false;
         allowEntry = false;
         completeTransformation = false;
@@ -144,15 +142,17 @@ public class PeopleController : ReadExcel
     }
     public void EntryInScena(SceneEffects sceneEffects, Transform entryPoint, float entryVelocity)
     {
-        if (allowEntry && /*!completeTransformation &&*/ AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        if (allowEntry && !completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
             sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
         }
     }
-    public void ExitScena(SceneEffects sceneEffects, Transform finalPoint, float entryVelocity, float timeTransformation)
+    public void ExitScena(SceneEffects sceneEffects, Transform finalPoint, float entryVelocity, float timeTransformation, int numPeople)
     {
-        if (/*completeTransformation && */AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        if (/*completeTransformation &&*/ AnswerCounter.totalAnswer / 3 == numPeople &&  AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
+            sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
+            
             timeElpasedTrandfotmation += Time.deltaTime;
             if (timeElpasedTrandfotmation >= timeTransformation)
             {
@@ -194,11 +194,11 @@ public class PeopleController : ReadExcel
         buttonNextDialogue.SetActive(true);
     }
 
-    public void FirstTransformation()
+    public void FirstTransformation(Animator animator)
     {
         animator.SetBool("Tra_1", true);
     }
-    public void SecondTransformation()
+    public void SecondTransformation(Animator animator)
     {
         animator.SetBool("Tra_2", true);
     }
