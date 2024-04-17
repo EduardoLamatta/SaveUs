@@ -21,8 +21,9 @@ public class People : PeopleController
     [SerializeField] private float timeTransformation;
     [SerializeField] private int numberRow;
     [SerializeField] private bool randomDialogue;
+    [SerializeField] private int rangeMin, rangeMax;
     [Range(0, 1)]
-    [SerializeField] private float alphaValue;
+    [SerializeField] private float alphaValue = 1;
 
     void Start()
     {
@@ -46,8 +47,26 @@ public class People : PeopleController
         BeginGame(questions, entryTime);
         EntryInScena(sceneEffects, entryPoint, entryVelocity);
         StartDialogue(entryPoint, textGameObject, timeNextPhrases, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue);
-        alphaValue = Transparency(peopleRenderer, speedChangeAlpha, textAnswers, timeTransformation, alphaValue);
-        ExitScena(sceneEffects, finalPoint, entryVelocity);
+        //alphaValue = Transparency(peopleRenderer, speedChangeAlpha, textAnswers, timeTransformation, alphaValue);
+        ExitScena(sceneEffects, finalPoint, entryVelocity, timeTransformation);
+
+        if ((int)AnswerCounter.totalAnswer / 3 >= rangeMin && (int)AnswerCounter.totalAnswer / 3 <= rangeMax)
+        {
+            if (AnswerCounter.numIncorrectAnswers == 2 * rangeMax)
+            {
+                FirstTransformation();
+            }
+            else if (AnswerCounter.numIncorrectAnswers == 3 * rangeMax)
+            {
+                SecondTransformation();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+                //CompleteTrnasforationBool();
+        }
+        
     }
     
 

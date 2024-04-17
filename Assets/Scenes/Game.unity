@@ -697,9 +697,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 218613867}
-        m_TargetAssemblyTypeName: Questions, Assembly-CSharp
-        m_MethodName: ShowQuestionButton
+      - m_Target: {fileID: 743501945}
+        m_TargetAssemblyTypeName: TextAnswers, Assembly-CSharp
+        m_MethodName: ShowAswersButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -709,9 +709,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 743501945}
-        m_TargetAssemblyTypeName: TextAnswers, Assembly-CSharp
-        m_MethodName: ShowAswersButton
+      - m_Target: {fileID: 218613867}
+        m_TargetAssemblyTypeName: Questions, Assembly-CSharp
+        m_MethodName: ShowQuestionButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 0.54509807}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -890,11 +890,14 @@ MonoBehaviour:
   movementSpeed: 150
   finalPositionInside: {fileID: 791691195}
   finalPositionExit: {fileID: 1089209810}
+  textQuestions: {fileID: 1074024227}
   initialQuestionTime: 60
   currentQuestionTime: 0
   timeElapsed: 0
+  timeDeactiveButton: 0
   inGame: 0
   peopleController: {fileID: 1815350849}
+  waitTime: 10
 --- !u!114 &218613868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,7 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1032,7 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 0.54901963}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1104,7 +1107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1258,7 +1261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 0.54509807}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1368,6 +1371,7 @@ GameObject:
   - component: {fileID: 409525943}
   - component: {fileID: 409525946}
   - component: {fileID: 409525945}
+  - component: {fileID: 409525947}
   m_Layer: 5
   m_Name: People (1)
   m_TagString: Untagged
@@ -1394,7 +1398,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -225.00006, y: 355.41748}
-  m_SizeDelta: {x: 700, y: 700}
+  m_SizeDelta: {x: 700, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409525943
 MonoBehaviour:
@@ -1408,7 +1412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1416,7 +1420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 84b3202e6a17b0f46b5af6f3f5b5b33e, type: 3}
+  m_Texture: {fileID: 2800000, guid: 5d8fa2e4460657845a7d943de326d712, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1449,7 +1453,9 @@ MonoBehaviour:
   rowExcel3: []
   rowExcel4: []
   inDialoguePeople: 1
-  entryVelocity: 120
+  timeElpasedTrandfotmation: 0
+  animator: {fileID: 409525947}
+  entryVelocity: 200
   entryPoint: {fileID: 1982004793}
   finalPoint: {fileID: 779004495}
   questions: {fileID: 218613867}
@@ -1457,7 +1463,7 @@ MonoBehaviour:
   textPeople: {fileID: 2134998989}
   numRowInExcel: 4
   excelPhrases: {fileID: 4900000, guid: aebe0d47fd50b5e4a96a94d8e62d56b1, type: 3}
-  entryTime: 3
+  entryTime: 0
   timeNextPhrases: 5
   timeNextChar: 0.05
   peopleRenderer: {fileID: 912770576}
@@ -1465,7 +1471,9 @@ MonoBehaviour:
   textAnswers: {fileID: 743501945}
   timeTransformation: 5
   numberRow: 2
-  randomDialogue: 0
+  randomDialogue: 1
+  rangeMin: 0
+  rangeMax: 1
   alphaValue: 0
 --- !u!114 &409525946
 MonoBehaviour:
@@ -1479,6 +1487,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c37b5f07d28ff4aa8075ecb501be71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &409525947
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409525940}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24857bf94042c1c4fa2bec52a954e04e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &409965975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,7 +1557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1586,7 +1615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: -457.3931}
+  m_AnchoredPosition: {x: 3, y: -457.3931}
   m_SizeDelta: {x: 640, y: 250.783}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422641101
@@ -1601,7 +1630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 0.54901963}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1982,7 +2011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 0.54901963}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2054,7 +2083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2578,7 +2607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2586,7 +2615,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 6ceadd4f23f2176469656aa0b146cd3b, type: 3}
+  m_Texture: {fileID: 2800000, guid: 2b92839038e0d3d478c561e7032861f9, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2742,7 +2771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -139}
+  m_AnchoredPosition: {x: 92, y: -207}
   m_SizeDelta: {x: -60, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068419550
@@ -2757,7 +2786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 0.54901963}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3169,7 +3198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3576,7 +3605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3648,7 +3677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.6156863, g: 0.7529412, b: 0.6156863, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3821,6 +3850,7 @@ GameObject:
   - component: {fileID: 1350584721}
   - component: {fileID: 1350584720}
   - component: {fileID: 1350584719}
+  - component: {fileID: 1350584723}
   m_Layer: 5
   m_Name: People (3)
   m_TagString: Untagged
@@ -3847,7 +3877,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -225.00006, y: 355.41748}
-  m_SizeDelta: {x: 700, y: 700}
+  m_SizeDelta: {x: 700, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350584719
 MonoBehaviour:
@@ -3867,7 +3897,9 @@ MonoBehaviour:
   rowExcel3: []
   rowExcel4: []
   inDialoguePeople: 1
-  entryVelocity: 120
+  timeElpasedTrandfotmation: 0
+  animator: {fileID: 1350584723}
+  entryVelocity: 200
   entryPoint: {fileID: 1982004793}
   finalPoint: {fileID: 779004495}
   questions: {fileID: 218613867}
@@ -3875,7 +3907,7 @@ MonoBehaviour:
   textPeople: {fileID: 1308224881}
   numRowInExcel: 4
   excelPhrases: {fileID: 4900000, guid: aebe0d47fd50b5e4a96a94d8e62d56b1, type: 3}
-  entryTime: 3
+  entryTime: 0
   timeNextPhrases: 5
   timeNextChar: 0.05
   peopleRenderer: {fileID: 1385190440}
@@ -3883,7 +3915,9 @@ MonoBehaviour:
   textAnswers: {fileID: 743501945}
   timeTransformation: 5
   numberRow: 4
-  randomDialogue: 0
+  randomDialogue: 1
+  rangeMin: 2
+  rangeMax: 3
   alphaValue: 0
 --- !u!114 &1350584720
 MonoBehaviour:
@@ -3909,7 +3943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3917,7 +3951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 556a0d381f41b354f92f1a5ca365dced, type: 3}
+  m_Texture: {fileID: 2800000, guid: 2bad7e3438d194c4fb79b293a2d37b75, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3932,6 +3966,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1350584717}
   m_CullTransparentMesh: 1
+--- !u!95 &1350584723
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350584717}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 609928e8ff2fdf04ba028a2e6031bd48, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1356337615
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,15 +4321,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 20083a9194e5fa84298d8e87e5d8d924, type: 3}
+  m_Texture: {fileID: 2800000, guid: 8fdaff1cf61e5104d8c2a093bf9433b5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4475,8 +4530,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 304.5}
-  m_SizeDelta: {x: 210, y: -871}
+  m_AnchoredPosition: {x: 0, y: 273.25}
+  m_SizeDelta: {x: 210, y: -866.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470477833
 MonoBehaviour:
@@ -4490,7 +4545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4498,7 +4553,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d46c480d05aaffb4b8f2fa88190add63, type: 3}
+  m_Texture: {fileID: 2800000, guid: d947901090e14b64ca3ce8dada7e0619, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4581,15 +4636,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 9edd3def25968bd49af49e6e725597cc, type: 3}
+  m_Texture: {fileID: 2800000, guid: c0a0e721d0e9b4e4f9edbecaf73fea61, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4654,7 +4709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4713,7 +4768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -65, y: -187.5}
+  m_AnchoredPosition: {x: -65, y: -139.9}
   m_SizeDelta: {x: 70, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673124124
@@ -4774,7 +4829,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2106475031}
         m_TargetAssemblyTypeName: Stranger, Assembly-CSharp
-        m_MethodName: StartDialogueWithStranger
+        m_MethodName: DialogueStranger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4796,7 +4851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -4871,7 +4926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5220,6 +5275,8 @@ MonoBehaviour:
   rowExcel3: []
   rowExcel4: []
   inDialoguePeople: 0
+  timeElpasedTrandfotmation: 0
+  animator: {fileID: 0}
 --- !u!1 &1827251233
 GameObject:
   m_ObjectHideFlags: 0
@@ -5404,7 +5461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5580,6 +5637,7 @@ GameObject:
   - component: {fileID: 2002660232}
   - component: {fileID: 2002660231}
   - component: {fileID: 2002660230}
+  - component: {fileID: 2002660234}
   m_Layer: 5
   m_Name: People (2)
   m_TagString: Untagged
@@ -5606,7 +5664,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -225.00006, y: 355.41748}
-  m_SizeDelta: {x: 700, y: 700}
+  m_SizeDelta: {x: 700, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2002660230
 MonoBehaviour:
@@ -5626,7 +5684,9 @@ MonoBehaviour:
   rowExcel3: []
   rowExcel4: []
   inDialoguePeople: 1
-  entryVelocity: 120
+  timeElpasedTrandfotmation: 0
+  animator: {fileID: 2002660234}
+  entryVelocity: 200
   entryPoint: {fileID: 1982004793}
   finalPoint: {fileID: 779004495}
   questions: {fileID: 218613867}
@@ -5634,7 +5694,7 @@ MonoBehaviour:
   textPeople: {fileID: 1756918354}
   numRowInExcel: 4
   excelPhrases: {fileID: 4900000, guid: aebe0d47fd50b5e4a96a94d8e62d56b1, type: 3}
-  entryTime: 3
+  entryTime: 0
   timeNextPhrases: 5
   timeNextChar: 0.05
   peopleRenderer: {fileID: 1558182080}
@@ -5642,7 +5702,9 @@ MonoBehaviour:
   textAnswers: {fileID: 743501945}
   timeTransformation: 5
   numberRow: 3
-  randomDialogue: 0
+  randomDialogue: 1
+  rangeMin: 1
+  rangeMax: 2
   alphaValue: 0
 --- !u!114 &2002660231
 MonoBehaviour:
@@ -5668,7 +5730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5676,7 +5738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 76b38f17e7a227f4e9a6604293ac6dc8, type: 3}
+  m_Texture: {fileID: 2800000, guid: e31d9d1ef2fd47c47b75568e0c9c747a, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -5691,6 +5753,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002660228}
   m_CullTransparentMesh: 1
+--- !u!95 &2002660234
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002660228}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ef20ed43afceab34088bfa2d795d7d7d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2036734408
 GameObject:
   m_ObjectHideFlags: 0
@@ -5787,11 +5870,11 @@ RectTransform:
   m_Children:
   - {fileID: 360204559}
   - {fileID: 1162217467}
-  - {fileID: 1789595245}
+  - {fileID: 2106475028}
   - {fileID: 1815350848}
+  - {fileID: 1789595245}
   - {fileID: 1982004793}
   - {fileID: 779004495}
-  - {fileID: 2106475028}
   - {fileID: 477658359}
   - {fileID: 1089209810}
   - {fileID: 791691195}
@@ -5858,7 +5941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.047058824, g: 0.09411765, b: 0.10980392, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5919,8 +6002,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1000, y: 630}
-  m_SizeDelta: {x: 700, y: 700}
+  m_AnchoredPosition: {x: -960, y: 589.9}
+  m_SizeDelta: {x: 700, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2106475029
 MonoBehaviour:
@@ -5934,7 +6017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -5942,7 +6025,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 372f82fa3c46a4846ab517f57873a8eb, type: 3}
+  m_Texture: {fileID: 2800000, guid: 8a298b30d7e64754b886c2661303a7db, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -5975,14 +6058,16 @@ MonoBehaviour:
   rowExcel3: []
   rowExcel4: []
   inDialoguePeople: 0
-  velocityMovement: 120
+  timeElpasedTrandfotmation: 0
+  animator: {fileID: 0}
+  velocityMovement: 200
   startButton: {fileID: 1789595244}
   questionSection: {fileID: 218613861}
   answerSection: {fileID: 304501309}
   finalPosition: {fileID: 477658359}
   entryPoint: {fileID: 2106475028}
   finalPoint: {fileID: 477658359}
-  timeNextChar: 0.05
+  timeNextChar: 0
   entryTime: 0
   timeNextPhrases: 1
   textGameObject: {fileID: 422641099}

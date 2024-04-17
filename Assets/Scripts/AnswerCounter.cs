@@ -12,7 +12,6 @@ public class AnswerCounter : ButtonsAnswer
     private void Update()
     {
         totalAnswer = numCorrecctAnswers + numIncorrectAnswers;
-        Debug.Log(totalAnswer);
     }
     public void CorrectAnswer()
     {

@@ -29,12 +29,9 @@ public class Stranger : PeopleController
 
     public void Update()
     {
-        Debug.Log(lineIdexStarnger);
-
         if (!moveStranger)
         {
             MoveRight();
-            Debug.Log("si2");
 
         }
         if (transform.position == finalPosition.position)
@@ -47,7 +44,6 @@ public class Stranger : PeopleController
 
         if (lineIdexStarnger < dictRowInExcel[numberRow].Length && textPeople.text == dictRowInExcel[numberRow][lineIdexStarnger])
         {
-            Debug.Log("si6");
             ActivateButtonStranger(buttonNextDialogue);
         }
     }
@@ -65,6 +61,7 @@ public class Stranger : PeopleController
         {
             moveStranger = false;
             effects.MovementsInGame(finalPosition.position, velocityMovement);
+            textGameObject.SetActive(false);
         }
     }
     public void ActivateQuestionSection()

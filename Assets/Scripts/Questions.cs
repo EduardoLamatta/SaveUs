@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using System;
-using System.Xml.Linq;
 
 public class Questions : ReadExcel
 {
@@ -15,15 +14,18 @@ public class Questions : ReadExcel
     [SerializeField] int numRowExcel;
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform finalPositionInside, finalPositionExit;
+    [SerializeField] TMP_Text textQuestions;
     private SceneEffects sceneEffects;
     private float timeToChars = 0.04f;
     public float initialQuestionTime;
     public float currentQuestionTime;
-    public float timeElapsed = 0;
+    public float timeElapsed = 0, timeDeactiveButton = 0;
     private bool changeTimeElapsed;
     public bool inGame;
     private bool  answerSectionInGame;
     [SerializeField] private PeopleController peopleController;
+    [SerializeField] private float waitTime;
+    [SerializeField] private float waitTimeAfterReply;
 
 
 
@@ -45,6 +47,16 @@ public class Questions : ReadExcel
         MovementInScene();
         MovementExitScene();
 
+        if (!PeopleController.allowQuestion)
+        {
+            HideText(textQuestions);
+        }
+        else
+        {
+            ShowText(textQuestions);
+        }
+
+
 
         if (finalPositionInside.position == transform.position && !inGame)
         {
@@ -55,6 +67,16 @@ public class Questions : ReadExcel
         if (ButtonsAnswer.numAnswers == 12 + 1 || currentQuestionTime <= 0)
         {
             answerSectionInGame = true;
+        }
+
+        if (AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3 && AnswerCounter.questionAnswered)
+        {
+            timeDeactiveButton += Time.deltaTime;
+            if (timeDeactiveButton > waitTime)
+            {
+                ActivateButtonQuestion();
+                timeDeactiveButton = 0;
+            }
         }
     }
 
@@ -86,7 +108,7 @@ public class Questions : ReadExcel
                 timeElapsed = 0;
                 AnswerCounter.NullAnswer();
             }
-            if (timeElapsed >= initialQuestionTime)
+            if (timeElapsed >= initialQuestionTime && AnswerCounter.totalAnswer / 3 != (int)AnswerCounter.totalAnswer / 3 && AnswerCounter.questionAnswered)
             {
                 ActivateButtonQuestion();
                 timeElapsed = 0;
@@ -95,9 +117,9 @@ public class Questions : ReadExcel
     }
     private void ChangeTimeElpased()
     {
-        if (AnswerCounter.questionAnswered && !changeTimeElapsed)
+        if (AnswerCounter.questionAnswered && !changeTimeElapsed && PeopleController.allowQuestion)
         {
-            timeElapsed = initialQuestionTime * 3 / 4;
+            timeElapsed = initialQuestionTime  - waitTimeAfterReply;
             changeTimeElapsed = true;
         }
     }
@@ -127,7 +149,10 @@ public class Questions : ReadExcel
             {
                 NextDialogue(dialoguesChar, dialogueText);
             }
+
         }
+        
+
     }
 
     private void NextDialogue(string[] dialoguesChar, TextMeshProUGUI dialogueText)
@@ -136,7 +161,6 @@ public class Questions : ReadExcel
 
         if (lineIndex < dialoguesChar.Length)
         {
-            Debug.Log("si2");
             StartCoroutine(DialogueSystem(dialoguesChar, dialogueText));
         }
     }
@@ -170,6 +194,29 @@ public class Questions : ReadExcel
         currentQuestionTime = initialQuestionTime * (1.0f - AnswerCounter.numIncorrectAnswers / 5.0f);
     }
 
-    
+    private void HideText(TMP_Text text)
+    {
+        Color textColor = text.color;
+        textColor.a = 0;
+        Debug.Log("a0");
+        /*if (AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        {
+            textColor.a = 0;
+            Debug.Log("a0");
+        }
+        if (!AnswerCounter.questionAnswered && AnswerCounter.totalAnswer / 3 != (int)AnswerCounter.totalAnswer / 3)
+        {
+            textColor.a = 1;
+            Debug.Log("a1");
+        }*/
+        text.color = textColor;
+    }
+    private void ShowText(TMP_Text text)
+    {
+        Color textColor = text.color;
+        textColor.a = 1;
+        Debug.Log("a1");
+        text.color = textColor;
+    }
 
 }

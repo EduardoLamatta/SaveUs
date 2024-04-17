@@ -10,12 +10,15 @@ public class PeopleController : ReadExcel
     private bool allowTransformation, completeTransformation;
     private int lineIndex = 0;
     private bool allowEntry;
-    private float timeElpasedTrandfotmation, time, timePhrases;
+    private float time, timePhrases;
+    [SerializeField] private float timeElpasedTrandfotmation;
     public static bool allowQuestion;
     private bool strangerDialogue;
+    [SerializeField] private Animator animator;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         inDialoguePeople = false;
         allowEntry = false;
         completeTransformation = false;
@@ -136,21 +139,25 @@ public class PeopleController : ReadExcel
     }
     public void TransparencyNull(CanvasRenderer renderer, float alphaValue)
     {
-        alphaValue = 0;
+        alphaValue = 1;
         renderer.SetAlpha(alphaValue);
     }
     public void EntryInScena(SceneEffects sceneEffects, Transform entryPoint, float entryVelocity)
     {
-        if (allowEntry && !completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        if (allowEntry && /*!completeTransformation &&*/ AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
             sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
         }
     }
-    public void ExitScena(SceneEffects sceneEffects, Transform finalPoint, float entryVelocity)
+    public void ExitScena(SceneEffects sceneEffects, Transform finalPoint, float entryVelocity, float timeTransformation)
     {
-        if (completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        if (/*completeTransformation && */AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
-            sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
+            timeElpasedTrandfotmation += Time.deltaTime;
+            if (timeElpasedTrandfotmation >= timeTransformation)
+            {
+                sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
+            }
         }
     }
     public void BeginGame(Questions questions, float entryTime)
@@ -186,4 +193,18 @@ public class PeopleController : ReadExcel
     {
         buttonNextDialogue.SetActive(true);
     }
+
+    public void FirstTransformation()
+    {
+        animator.SetBool("Tra_1", true);
+    }
+    public void SecondTransformation()
+    {
+        animator.SetBool("Tra_2", true);
+    }
+    /*public void CompleteTrnasforationBool()
+    {
+        completeTransformation = true;
+    }*/
+
 }
