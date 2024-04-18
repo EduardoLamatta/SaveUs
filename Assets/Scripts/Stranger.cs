@@ -52,7 +52,7 @@ public class Stranger : PeopleController
         if (lineIdexStarnger < dictRowInExcel[numberRow].Length)
         {
             startButton.SetActive(false);
-            StartDialogueStranger(textGameObject, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue, buttonNextDialogue);
+            StartDialogueStranger(textGameObject, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue, buttonNextDialogue, false);
         }
     }
     public void MoveRight()

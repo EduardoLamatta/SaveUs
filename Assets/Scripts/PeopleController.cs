@@ -13,7 +13,7 @@ public class PeopleController : ReadExcel
     private float time, timePhrases;
     private float timeElpasedTrandfotmation;
     public static bool allowQuestion;
-    private bool strangerDialogue;
+    public bool strangerDialogue;
 
     void Start()
     {
@@ -60,8 +60,14 @@ public class PeopleController : ReadExcel
             
         }
     }
-    public void StartDialogueStranger(GameObject textGameObject, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, GameObject buttonTextStranger)
+    public void StartDialogueStranger(GameObject textGameObject, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, GameObject buttonTextStranger, bool deal)
     {
+        if (deal)
+        {
+            lineIndex = 0;
+        }
+
+
         if (!randomAllow && lineIndex < rowExcel.Length - 1)
         {
             if (!strangerDialogue)
@@ -70,10 +76,13 @@ public class PeopleController : ReadExcel
 
                 strangerDialogue = true;
                 StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow));
+                Debug.Log("h2");
+
             }
             else if (textPeople.text == rowExcel[lineIndex])
             {
                 NextDialogue(textPeople, timeNextChar, rowExcel, randomAllow);
+                Debug.Log("hi");
             }
             if (textPeople.text != rowExcel[lineIndex])
             {
@@ -185,7 +194,7 @@ public class PeopleController : ReadExcel
     {
         return lineIndex;
     }
-    private void DeactivateButtonStranger(GameObject buttonNextDialogue)
+    public void DeactivateButtonStranger(GameObject buttonNextDialogue)
     {
         buttonNextDialogue.SetActive(false);
     }
