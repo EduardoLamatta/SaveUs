@@ -11,7 +11,7 @@ public class PeopleController : ReadExcel
     private int lineIndex = 0;
     private bool allowEntry;
     private float time, timePhrases;
-    [SerializeField] private float timeElpasedTrandfotmation;
+    private float timeElpasedTrandfotmation;
     public static bool allowQuestion;
     private bool strangerDialogue;
 

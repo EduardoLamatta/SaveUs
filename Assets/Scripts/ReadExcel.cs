@@ -9,11 +9,11 @@ public class ReadExcel : MonoBehaviour
 {
     private string[] dialogues;
     [HideInInspector] public int tableSize;
-    public string[] rowExcel1;
-    public string[] rowExcel2;
-    public string[] rowExcel3;
-    public string[] rowExcel4;
-    public Dictionary<int, string[]> dictRowInExcel = new Dictionary<int, string[]>();
+    [HideInInspector] public string[] rowExcel1;
+    [HideInInspector] public string[] rowExcel2;
+    [HideInInspector] public string[] rowExcel3;
+    [HideInInspector] public string[] rowExcel4;
+    [HideInInspector] public Dictionary<int, string[]> dictRowInExcel = new Dictionary<int, string[]>();
     public void ReadExcelDialogues(TextAsset excelText, int numRowExcel)
     {
         dialogues = excelText.text.Split(new string[] { ";", "\n" }, StringSplitOptions.None);
