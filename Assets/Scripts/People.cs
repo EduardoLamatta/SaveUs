@@ -24,11 +24,14 @@ public class People : PeopleController
     [SerializeField] private int rangeMin, rangeMax;
     [SerializeField] private int numPeople;
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioClip audioVoice;
+    [SerializeField] private AudioSource audioSource;
     [Range(0, 1)]
     [SerializeField] private float alphaValue = 1;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         sceneEffects = GetComponent<SceneEffects>();
         ReadExcelDialogues(excelPhrases, numRowInExcel);
@@ -49,8 +52,7 @@ public class People : PeopleController
 
         BeginGame(questions, entryTime);
         EntryInScena(sceneEffects, entryPoint, entryVelocity);
-        StartDialogue(entryPoint, textGameObject, timeNextPhrases, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue);
-        //alphaValue = Transparency(peopleRenderer, speedChangeAlpha, textAnswers, timeTransformation, alphaValue);
+        StartDialogue(entryPoint, textGameObject, timeNextPhrases, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue, audioVoice, audioSource);
         ExitScena(sceneEffects, finalPoint, entryVelocity, timeTransformation, numPeople);
 
         if ((int)AnswerCounter.totalAnswer / 3 >= rangeMin && (int)AnswerCounter.totalAnswer / 3 <= rangeMax)
@@ -63,11 +65,6 @@ public class People : PeopleController
             {
                 SecondTransformation(animator);
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-                //CompleteTrnasforationBool();
         }
         
     }

@@ -8,6 +8,7 @@ public class AnswerCounter : ButtonsAnswer
     public static float numIncorrectAnswers;
     public static bool questionAnswered;
     public static float totalAnswer;
+    [SerializeField] private AudioManager audioManager;
 
     private void Update()
     {
@@ -17,6 +18,7 @@ public class AnswerCounter : ButtonsAnswer
     {
         if (!questionAnswered)
         {
+            audioManager.PlayAudioClipButton();
             if (gameObject.tag == "CorrectAnswer")
             {
                 numCorrecctAnswers++;
@@ -28,6 +30,7 @@ public class AnswerCounter : ButtonsAnswer
     {
         if (!questionAnswered)
         {
+            audioManager.PlayAudioClipButton();
             if (gameObject.tag == "IncorrectAnswer")
             {
                 numIncorrectAnswers++;

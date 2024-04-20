@@ -26,11 +26,14 @@ public class Questions : ReadExcel
     [SerializeField] private PeopleController peopleController;
     [SerializeField] private float waitTime;
     [SerializeField] private float waitTimeAfterReply;
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private AudioSource audioSource;
 
 
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         sceneEffects = GetComponent<SceneEffects>();
         inGame = false;
         inDialogue = false;
@@ -130,6 +133,7 @@ public class Questions : ReadExcel
             timeElapsed = 0;
             peopleController.Active();
             peopleController.Deactive();
+            audioManager.PlayAudioClipButton();
         }
 
         if (!PeopleController.allowQuestion)

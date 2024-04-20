@@ -49,5 +49,10 @@ public class AnswerSectionController : SceneEffects
         return numPeople;
     }
 
+    public Transform GetEntryPoint()
+    {
+        return finalInsidePosition;
+    }
+
 
 }

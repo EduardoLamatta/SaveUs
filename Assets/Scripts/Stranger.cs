@@ -20,8 +20,12 @@ public class Stranger : PeopleController
     [SerializeField] private int numRowInExcel;
     [SerializeField] private TextAsset excelPhrases;
     [SerializeField] private int lineIdexStarnger = 0;
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioVoice;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         effects = GetComponent<SceneEffects>();
         ReadExcelDialogues(excelPhrases, numRowInExcel);
         DictionaryRowsInExcel();
@@ -40,19 +44,24 @@ public class Stranger : PeopleController
             ActivateQuestionSection();
             ActivateAnswerSection();
         }
+        
         SetIndexText();
-
-        if (lineIdexStarnger < dictRowInExcel[numberRow].Length && textPeople.text == dictRowInExcel[numberRow][lineIdexStarnger])
+        if (lineIdexStarnger < dictRowInExcel[numberRow].Length && textPeople.text == dictRowInExcel[numberRow][lineIdexStarnger] && transform.position == entryPoint.position)
         {
             ActivateButtonStranger(buttonNextDialogue);
         }
+        /*if (lineIdexStarnger == dictRowInExcel[numberRow].Length)
+        {
+            buttonNextDialogue.SetActive(false);
+        }*/
     }
     public void DialogueStranger()
     {
-        if (lineIdexStarnger < dictRowInExcel[numberRow].Length)
+        if (lineIdexStarnger < dictRowInExcel[numberRow].Length && transform.position != finalPosition.position)
         {
             startButton.SetActive(false);
-            StartDialogueStranger(textGameObject, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue, buttonNextDialogue, false);
+            StartDialogueStranger(textGameObject, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue, buttonNextDialogue, audioVoice, audioSource);
+            audioManager.PlayAudioClipButton();
         }
     }
     public void MoveRight()
@@ -62,6 +71,7 @@ public class Stranger : PeopleController
             moveStranger = false;
             effects.MovementsInGame(finalPosition.position, velocityMovement);
             textGameObject.SetActive(false);
+            buttonNextDialogue.SetActive(false);
         }
     }
     public void ActivateQuestionSection()

@@ -10,10 +10,12 @@ public class PeopleController : ReadExcel
     private bool allowTransformation, completeTransformation;
     private int lineIndex = 0;
     private bool allowEntry;
-    private float time, timePhrases;
+    private float timePhrases;
+    private float time;
     private float timeElpasedTrandfotmation;
     public static bool allowQuestion;
     public bool strangerDialogue;
+    private bool allowExit;
 
     void Start()
     {
@@ -45,7 +47,7 @@ public class PeopleController : ReadExcel
         }
     }
 
-    public void StartDialogue(Transform entryPoint, GameObject textGameObject, float timeNextPhrases, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow)
+    public void StartDialogue(Transform entryPoint, GameObject textGameObject, float timeNextPhrases, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, AudioClip audioVoice, AudioSource audioSource)
     {
         if (transform.position == entryPoint.position && randomAllow)
         {
@@ -54,20 +56,14 @@ public class PeopleController : ReadExcel
             inDialoguePeople = true;
             if (timePhrases >= timeNextPhrases)
             {
-                StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow));
+                StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow, audioVoice, audioSource));
                 timePhrases = 0;
             }
             
         }
     }
-    public void StartDialogueStranger(GameObject textGameObject, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, GameObject buttonTextStranger, bool deal)
+    public void StartDialogueStranger(GameObject textGameObject, TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, GameObject buttonTextStranger, AudioClip audioVoice, AudioSource audioSource)
     {
-        if (deal)
-        {
-            lineIndex = 0;
-        }
-
-
         if (!randomAllow && lineIndex < rowExcel.Length - 1)
         {
             if (!strangerDialogue)
@@ -75,14 +71,12 @@ public class PeopleController : ReadExcel
                 textGameObject.SetActive(true);
 
                 strangerDialogue = true;
-                StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow));
-                Debug.Log("h2");
+                StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow, audioVoice, audioSource));
 
             }
             else if (textPeople.text == rowExcel[lineIndex])
             {
-                NextDialogue(textPeople, timeNextChar, rowExcel, randomAllow);
-                Debug.Log("hi");
+                NextDialogue(textPeople, timeNextChar, rowExcel, randomAllow, audioVoice, audioSource);
             }
             if (textPeople.text != rowExcel[lineIndex])
             {
@@ -91,16 +85,16 @@ public class PeopleController : ReadExcel
         }
 
     }
-    private void NextDialogue(TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow)
+    private void NextDialogue(TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, AudioClip audioVoice, AudioSource audioSource)
     {
         lineIndex++;
 
         if (lineIndex < rowExcel.Length)
         {
-            StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow));
+            StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow, audioVoice, audioSource));
         }
     }
-    public IEnumerator DialogueSystem(string[] phrases, TextMeshProUGUI textPeopleGame, float timeNextChar, bool randomAllow)
+    public IEnumerator DialogueSystem(string[] phrases, TextMeshProUGUI textPeopleGame, float timeNextChar, bool randomAllow, AudioClip audioVoice, AudioSource audioSource)
     {
         if(randomAllow)
         {
@@ -111,6 +105,7 @@ public class PeopleController : ReadExcel
         textPeopleGame.text = string.Empty;
         foreach (char ch in phrases[lineIndex])
         {
+            audioSource.PlayOneShot(audioVoice);
             textPeopleGame.text += ch;
             yield return new WaitForSeconds(timeNextChar);
         }
@@ -151,7 +146,7 @@ public class PeopleController : ReadExcel
     }
     public void EntryInScena(SceneEffects sceneEffects, Transform entryPoint, float entryVelocity)
     {
-        if (allowEntry && !completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        if (allowEntry && !completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3 && !allowExit)
         {
             sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
         }
@@ -160,12 +155,18 @@ public class PeopleController : ReadExcel
     {
         if (/*completeTransformation &&*/ AnswerCounter.totalAnswer / 3 == numPeople &&  AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
-            sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
+            //sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
             
             timeElpasedTrandfotmation += Time.deltaTime;
             if (timeElpasedTrandfotmation >= timeTransformation)
             {
+                allowExit = true;
+            }
+
+            if (allowExit)
+            {
                 sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
+                Debug.Log("hola");
             }
         }
     }
