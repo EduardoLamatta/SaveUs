@@ -5,31 +5,29 @@ using UnityEngine.UI;
 
 public class PlayerResults : SceneEffects
 {
-    [SerializeField] private GameObject victoryScreen;
-    [SerializeField] private GameObject looseScreen;
     [SerializeField] private Questions questions;
     [SerializeField] private Transform positionSoon, positionWife, positionFather;
-    [SerializeField] private GameObject soon, wife, father;
-    private void Start()
-    {
-        victoryScreen.SetActive(false);
-        looseScreen.SetActive(false);
-    }
+    [SerializeField] private GameObject soon, positionSoonGO, wife, positionWifeGO, father, positionFatherGO, textFinal;
     private void Update()
     {
-        if (AnswerCounter.numCorrecctAnswers == 9)
+        if (AnswerCounter.totalAnswer == 9)
         {
-            victoryScreen.SetActive(true);
             PositionsPeopleToFinal();
         }
         else if (questions.currentQuestionTime <= 0 && questions.inGame)
         {
-            looseScreen.SetActive(true);
             PositionsPeopleToFinal();
         }
     }
     private void PositionsPeopleToFinal()
     {
+        positionFatherGO.SetActive(true);
+        positionSoonGO.SetActive(true);
+        positionWifeGO.SetActive(true);
+        soon.SetActive(true);
+        wife.SetActive(true);
+        father.SetActive(true);
+        textFinal.SetActive(true);
         soon.transform.position = positionSoon.position;
         wife.transform.position = positionWife.position;
         father.transform.position = positionFather.position;

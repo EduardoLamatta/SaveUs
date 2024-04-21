@@ -64,7 +64,7 @@ public class Questions : ReadExcel
             ActivateButtonQuestion();
         }
 
-        if (ButtonsAnswer.numAnswers == 12 + 1 || currentQuestionTime <= 0)
+        if (ButtonsAnswer.numAnswers == 10 || currentQuestionTime <= 0)
         {
             answerSectionInGame = true;
         }

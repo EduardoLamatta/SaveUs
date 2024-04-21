@@ -21,7 +21,7 @@ public class People : PeopleController
     [SerializeField] private float timeTransformation;
     [SerializeField] private int numberRow;
     [SerializeField] private bool randomDialogue;
-    [SerializeField] private int rangeMin, rangeMax;
+    [SerializeField] private int rangeMin, rangeMax, numToTrans;
     [SerializeField] private int numPeople;
     [SerializeField] private Animator animator;
     [SerializeField] private AudioClip audioVoice;
@@ -57,11 +57,11 @@ public class People : PeopleController
 
         if ((int)AnswerCounter.totalAnswer / 3 >= rangeMin && (int)AnswerCounter.totalAnswer / 3 <= rangeMax)
         {
-            if (AnswerCounter.numIncorrectAnswers == 2 * rangeMax)
+            if (AnswerCounter.numIncorrectAnswers == numToTrans)
             {
                 FirstTransformation(animator);
             }
-            else if (AnswerCounter.numIncorrectAnswers == 3 * rangeMax)
+            else if (AnswerCounter.numIncorrectAnswers == numToTrans + 1)
             {
                 SecondTransformation(animator);
             }
