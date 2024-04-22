@@ -28,6 +28,7 @@ public class Questions : ReadExcel
     [SerializeField] private float waitTimeAfterReply;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private AudioSource audioSource;
+    private float timeToFinishScene;
 
 
 
@@ -49,7 +50,7 @@ public class Questions : ReadExcel
         ChangeTimeElpased();
         MovementInScene();
         MovementExitScene();
-
+        
         
         if (PeopleController.allowQuestion)
         {       
@@ -64,8 +65,9 @@ public class Questions : ReadExcel
             ActivateButtonQuestion();
         }
 
-        if (ButtonsAnswer.numAnswers == 10 || currentQuestionTime <= 0)
+        if (AnswerCounter.totalAnswer == 9 || currentQuestionTime <= 0)
         {
+            timeToFinishScene += Time.deltaTime;
             answerSectionInGame = true;
         }
 
@@ -89,7 +91,7 @@ public class Questions : ReadExcel
     }
     private void MovementExitScene()
     {
-        if (answerSectionInGame)
+        if (answerSectionInGame && timeToFinishScene > waitTimeAfterReply)
         {
             sceneEffects.MovementsInGame(finalPositionExit.position, movementSpeed);
             DeactivateButtonQuestion();

@@ -9,6 +9,7 @@ public class AnswerCounter : ButtonsAnswer
     public static bool questionAnswered;
     public static float totalAnswer;
     [SerializeField] private AudioManager audioManager;
+    public static bool nullAnswer;
 
     private void Update()
     {
@@ -22,8 +23,10 @@ public class AnswerCounter : ButtonsAnswer
             if (gameObject.tag == "CorrectAnswer")
             {
                 numCorrecctAnswers++;
+                nullAnswer = false;
             }
             questionAnswered = true;
+
         }
     }
     public void IncorrectAnswer()
@@ -34,10 +37,12 @@ public class AnswerCounter : ButtonsAnswer
             if (gameObject.tag == "IncorrectAnswer")
             {
                 numIncorrectAnswers++;
+                nullAnswer = false;
             }
             questionAnswered = true;
+
         }
-        
+
     }
     public static void NullAnswer()
     {
@@ -45,6 +50,8 @@ public class AnswerCounter : ButtonsAnswer
         {
             numIncorrectAnswers++;
             questionAnswered = true;
+            nullAnswer = true;
+            Debug.Log("null answer");
         }
     }
 

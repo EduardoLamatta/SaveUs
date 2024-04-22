@@ -10,6 +10,8 @@ public class AnswerSectionController : SceneEffects
     [SerializeField] private ReadExcel readExcel;
     [SerializeField] private float movementSpeed;
     [SerializeField] private PeopleController peopleController;
+    [SerializeField] private float waitTimeAfterReply;
+    private float timeToFinishScene;
     private int numPeople;
     private bool sectionAnswerInGame;
 
@@ -21,9 +23,10 @@ public class AnswerSectionController : SceneEffects
     {
         MovementInsideScene();
         MovementExitScene();
-        if (ButtonsAnswer.numAnswers ==  12 + 1 || questions.currentQuestionTime <= 0)
+        if (AnswerCounter.totalAnswer ==  9 || questions.currentQuestionTime <= 0)
         {
             sectionAnswerInGame = true;
+            timeToFinishScene += Time.deltaTime;
         }
     }
 
@@ -36,7 +39,7 @@ public class AnswerSectionController : SceneEffects
     }
     private void MovementExitScene()
     {
-        if (sectionAnswerInGame)
+        if (sectionAnswerInGame && timeToFinishScene > waitTimeAfterReply)
         {
             MovementsInGame(finalExitPosition.position, movementSpeed);
         }

@@ -219,6 +219,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 409525945}
+        m_TargetAssemblyTypeName: People, Assembly-CSharp
+        m_MethodName: CounterTransformAnswer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2002660230}
+        m_TargetAssemblyTypeName: People, Assembly-CSharp
+        m_MethodName: CounterTransformAnswer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1350584719}
+        m_TargetAssemblyTypeName: People, Assembly-CSharp
+        m_MethodName: CounterTransformAnswer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &119749747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +323,7 @@ GameObject:
   - component: {fileID: 191635539}
   - component: {fileID: 191635538}
   - component: {fileID: 191635537}
+  - component: {fileID: 191635540}
   m_Layer: 5
   m_Name: questionsButton
   m_TagString: Untagged
@@ -443,6 +480,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191635535}
   m_CullTransparentMesh: 1
+--- !u!95 &191635540
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191635535}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c5d87235b8f85041b395c7c32014f75, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &218613861
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,8 +616,8 @@ MonoBehaviour:
   timeDeactiveButton: 0
   inGame: 0
   peopleController: {fileID: 1815350849}
-  waitTime: 20
-  waitTimeAfterReply: 13
+  waitTime: 17
+  waitTimeAfterReply: 11
   audioManager: {fileID: 1448814944}
   audioSource: {fileID: 218613869}
 --- !u!114 &218613868
@@ -1101,6 +1159,8 @@ MonoBehaviour:
   father: {fileID: 1350584717}
   positionFatherGO: {fileID: 412629509}
   textFinal: {fileID: 1039962938}
+  waitTime: 15
+  peopleFather: {fileID: 1350584719}
 --- !u!114 &280565418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,6 +1279,7 @@ MonoBehaviour:
   readExcel: {fileID: 304501314}
   movementSpeed: 250
   peopleController: {fileID: 1815350849}
+  waitTimeAfterReply: 11
 --- !u!114 &304501314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1311,7 +1372,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -225.00006, y: 355.41748}
+  m_AnchoredPosition: {x: -225, y: 355}
   m_SizeDelta: {x: 700, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409525943
@@ -1392,6 +1453,7 @@ MonoBehaviour:
   animator: {fileID: 409525947}
   audioVoice: {fileID: 8300000, guid: 17edbc4464f9e5b4a85eea2e16b0bb55, type: 3}
   audioSource: {fileID: 409525948}
+  counterToTransform: 0
   alphaValue: 0
 --- !u!114 &409525946
 MonoBehaviour:
@@ -2123,7 +2185,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: ab505058a262f174e975c420836918df, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1.6
+  m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -2894,7 +2956,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Very well, this is your family haha
+  m_text: Now this is your family! haha!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3912,7 +3974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -225.00006, y: 355.41748}
+  m_AnchoredPosition: {x: -225, y: 355}
   m_SizeDelta: {x: 700, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350584719
@@ -3958,6 +4020,7 @@ MonoBehaviour:
   animator: {fileID: 1350584723}
   audioVoice: {fileID: 8300000, guid: 17edbc4464f9e5b4a85eea2e16b0bb55, type: 3}
   audioSource: {fileID: 1350584724}
+  counterToTransform: 0
   alphaValue: 0
 --- !u!114 &1350584720
 MonoBehaviour:
@@ -4210,6 +4273,42 @@ MonoBehaviour:
       - m_Target: {fileID: 1356337620}
         m_TargetAssemblyTypeName: AnswerCounter, Assembly-CSharp
         m_MethodName: IncorrectAnswer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 409525945}
+        m_TargetAssemblyTypeName: People, Assembly-CSharp
+        m_MethodName: CounterTransformAnswer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2002660230}
+        m_TargetAssemblyTypeName: People, Assembly-CSharp
+        m_MethodName: CounterTransformAnswer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1350584719}
+        m_TargetAssemblyTypeName: People, Assembly-CSharp
+        m_MethodName: CounterTransformAnswer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5569,7 +5668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -225.00006, y: 355.41748}
+  m_AnchoredPosition: {x: -225, y: 355}
   m_SizeDelta: {x: 700, y: 812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2002660230
@@ -5615,6 +5714,7 @@ MonoBehaviour:
   animator: {fileID: 2002660234}
   audioVoice: {fileID: 8300000, guid: 17edbc4464f9e5b4a85eea2e16b0bb55, type: 3}
   audioSource: {fileID: 2002660235}
+  counterToTransform: 0
   alphaValue: 0
 --- !u!114 &2002660231
 MonoBehaviour:
@@ -6260,7 +6360,7 @@ RectTransform:
   m_GameObject: {fileID: 8883021739884679262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1.0000187}
+  m_LocalScale: {x: 2, y: 2, z: 1.000019}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 321166880128021748}
@@ -6615,7 +6715,7 @@ MonoBehaviour:
   finalPosition: {fileID: 477658359}
   entryPoint: {fileID: 1042667171}
   finalPoint: {fileID: 477658359}
-  timeNextChar: 0.07
+  timeNextChar: 0.05
   entryTime: 0
   timeNextPhrases: 1
   textGameObject: {fileID: 740564034514038668}
@@ -7141,6 +7241,7 @@ GameObject:
   - component: {fileID: 3722918523708916622}
   - component: {fileID: 3738641190226033545}
   - component: {fileID: 6445905825119109704}
+  - component: {fileID: 8883021739884679263}
   m_Layer: 5
   m_Name: questionsButton
   m_TagString: Untagged
@@ -7148,6 +7249,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!95 &8883021739884679263
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8883021739884679262}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c5d87235b8f85041b395c7c32014f75, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9088056243124898194
 GameObject:
   m_ObjectHideFlags: 0

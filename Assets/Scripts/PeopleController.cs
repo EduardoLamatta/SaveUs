@@ -148,6 +148,7 @@ public class PeopleController : ReadExcel
     {
         if (allowEntry && !completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3 && !allowExit)
         {
+            Debug.Log("si");    
             sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
         }
     }
@@ -166,7 +167,6 @@ public class PeopleController : ReadExcel
             if (allowExit)
             {
                 sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
-                Debug.Log("hola");
             }
         }
     }
@@ -212,9 +212,11 @@ public class PeopleController : ReadExcel
     {
         animator.SetBool("Tra_2", true);
     }
-    /*public void CompleteTrnasforationBool()
+    public void ThirdTransformation(Animator animator)
     {
-        completeTransformation = true;
-    }*/
+        animator.SetBool("Tra_3", true);
+    }
+
+
 
 }

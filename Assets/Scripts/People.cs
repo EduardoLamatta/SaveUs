@@ -26,6 +26,7 @@ public class People : PeopleController
     [SerializeField] private Animator animator;
     [SerializeField] private AudioClip audioVoice;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private int counterToTransform;
     [Range(0, 1)]
     [SerializeField] private float alphaValue = 1;
 
@@ -53,23 +54,59 @@ public class People : PeopleController
         BeginGame(questions, entryTime);
         EntryInScena(sceneEffects, entryPoint, entryVelocity);
         StartDialogue(entryPoint, textGameObject, timeNextPhrases, textPeople, timeNextChar, dictRowInExcel[numberRow], randomDialogue, audioVoice, audioSource);
-        ExitScena(sceneEffects, finalPoint, entryVelocity, timeTransformation, numPeople);
 
+        if (AnswerCounter.totalAnswer < 9)
+        {
+            ExitScena(sceneEffects, finalPoint, entryVelocity, timeTransformation, numPeople);
+        }
+        if (AnswerCounter.nullAnswer)
+        {
+            CounterTransformAnswer();
+        }
+
+        TransformPeople();
+    }
+
+    public void CounterTransformAnswer()
+    {
+        if (gameObject.activeSelf)
+        {
+            counterToTransform++;
+            Debug.Log("People:    " + counterToTransform);
+            AnswerCounter.nullAnswer = false;
+        }
+    }
+    /*public void CounterTransformNullAnswer()
+    {
+        if (gameObject.activeSelf && AnswerCounter.nullAnswer)
+        {
+            counterToTransform++;
+            AnswerCounter.nullAnswer = false;
+        }
+    }*/
+    private void TransformPeople()
+    {
         if ((int)AnswerCounter.totalAnswer / 3 >= rangeMin && (int)AnswerCounter.totalAnswer / 3 <= rangeMax)
         {
-            if (AnswerCounter.numIncorrectAnswers == numToTrans)
+            if (counterToTransform == 1)
             {
                 FirstTransformation(animator);
             }
-            else if (AnswerCounter.numIncorrectAnswers == numToTrans + 1)
+            else if (counterToTransform == 2)
             {
                 SecondTransformation(animator);
             }
+            else if (counterToTransform == 3)
+            {
+                ThirdTransformation(animator);
+            }
         }
-        
     }
     
-
+    public int GetCounterToTransform()
+    {
+        return counterToTransform;
+    }
 
 
 
