@@ -14,7 +14,7 @@ public class PeopleController : ReadExcel
     private float time;
     private float timeElpasedTrandfotmation;
     public static bool allowQuestion;
-    public bool strangerDialogue;
+    public bool strangerDialogue = false;
     private bool allowExit;
 
     void Start()
@@ -72,7 +72,6 @@ public class PeopleController : ReadExcel
 
                 strangerDialogue = true;
                 StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow, audioVoice, audioSource));
-
             }
             else if (textPeople.text == rowExcel[lineIndex])
             {
@@ -85,6 +84,7 @@ public class PeopleController : ReadExcel
         }
 
     }
+
     private void NextDialogue(TextMeshProUGUI textPeople, float timeNextChar, string[] rowExcel, bool randomAllow, AudioClip audioVoice, AudioSource audioSource)
     {
         lineIndex++;
@@ -94,6 +94,7 @@ public class PeopleController : ReadExcel
             StartCoroutine(DialogueSystem(rowExcel, textPeople, timeNextChar, randomAllow, audioVoice, audioSource));
         }
     }
+
     public IEnumerator DialogueSystem(string[] phrases, TextMeshProUGUI textPeopleGame, float timeNextChar, bool randomAllow, AudioClip audioVoice, AudioSource audioSource)
     {
         if(randomAllow)
@@ -103,6 +104,8 @@ public class PeopleController : ReadExcel
 
         inDialoguePeople = false;
         textPeopleGame.text = string.Empty;
+
+
         foreach (char ch in phrases[lineIndex])
         {
             audioSource.PlayOneShot(audioVoice);
@@ -148,16 +151,13 @@ public class PeopleController : ReadExcel
     {
         if (allowEntry && !completeTransformation && AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3 && !allowExit)
         {
-            Debug.Log("si");    
             sceneEffects.MovementsInGame(entryPoint.position, entryVelocity);
         }
     }
     public void ExitScena(SceneEffects sceneEffects, Transform finalPoint, float entryVelocity, float timeTransformation, int numPeople)
     {
-        if (/*completeTransformation &&*/ AnswerCounter.totalAnswer / 3 == numPeople &&  AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
+        if (AnswerCounter.totalAnswer / 3 == numPeople &&  AnswerCounter.totalAnswer / 3 == (int)AnswerCounter.totalAnswer / 3)
         {
-            //sceneEffects.MovementsInGame(finalPoint.position, entryVelocity);
-            
             timeElpasedTrandfotmation += Time.deltaTime;
             if (timeElpasedTrandfotmation >= timeTransformation)
             {

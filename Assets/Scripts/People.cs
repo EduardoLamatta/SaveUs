@@ -12,7 +12,7 @@ public class People : PeopleController
     [SerializeField] private GameObject textGameObject;
     [SerializeField] private TextMeshProUGUI textPeople;
     [SerializeField] private int numRowInExcel;
-    [SerializeField] private TextAsset excelPhrases;
+    [SerializeField] private TextAsset[] excelPhrases;
     [SerializeField] private float entryTime, timeNextPhrases;
     [SerializeField] private float timeNextChar;
     [SerializeField] private CanvasRenderer peopleRenderer;
@@ -27,6 +27,9 @@ public class People : PeopleController
     [SerializeField] private AudioClip audioVoice;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private int counterToTransform;
+    [SerializeField] bool changeOriginalLanguage = true;
+    [SerializeField] private ChangeLanguage changeLanguage;
+
     [Range(0, 1)]
     [SerializeField] private float alphaValue = 1;
 
@@ -35,7 +38,19 @@ public class People : PeopleController
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         sceneEffects = GetComponent<SceneEffects>();
-        ReadExcelDialogues(excelPhrases, numRowInExcel);
+        //ReadExcelDialogues(excelPhrases, numRowInExcel);
+        SetChangeLanguage();
+
+        if (changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelPhrases[0], numRowInExcel);
+        }
+
+        if (!changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelPhrases[1], numRowInExcel);
+        }
+
         TransparencyNull(peopleRenderer, alphaValue);
         DeactivateTextGameObject(textGameObject);
         DictionaryRowsInExcel();
@@ -72,7 +87,6 @@ public class People : PeopleController
         if (gameObject.activeSelf)
         {
             counterToTransform++;
-            Debug.Log("People:    " + counterToTransform);
             AnswerCounter.nullAnswer = false;
         }
     }
@@ -108,6 +122,10 @@ public class People : PeopleController
         return counterToTransform;
     }
 
-
+    private bool SetChangeLanguage()
+    {
+        changeOriginalLanguage = changeLanguage.GetChangeLanguage();
+        return changeOriginalLanguage;
+    }
 
 }

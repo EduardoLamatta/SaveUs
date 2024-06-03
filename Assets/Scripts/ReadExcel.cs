@@ -17,7 +17,7 @@ public class ReadExcel : MonoBehaviour
     public void ReadExcelDialogues(TextAsset excelText, int numRowExcel)
     {
         dialogues = excelText.text.Split(new string[] { ";", "\n" }, StringSplitOptions.None);
-        tableSize = dialogues.Length / numRowExcel - 1;
+        tableSize = (dialogues.Length / numRowExcel) - 1;
 
         rowExcel1 = new string[tableSize];
         rowExcel2 = new string[tableSize];

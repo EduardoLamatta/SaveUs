@@ -10,7 +10,7 @@ public class Questions : ReadExcel
     [HideInInspector] public bool questionComplete;
     [SerializeField] TextMeshProUGUI quiestionText;
     [SerializeField] private GameObject buttonQuestion;
-    [SerializeField] private TextAsset excelText;
+    [SerializeField] private TextAsset[] excelText;
     [SerializeField] int numRowExcel;
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform finalPositionInside, finalPositionExit;
@@ -29,6 +29,8 @@ public class Questions : ReadExcel
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private AudioSource audioSource;
     private float timeToFinishScene;
+    [SerializeField] bool changeOriginalLanguage;
+    [SerializeField] private ChangeLanguage changeLanguage;
 
 
 
@@ -38,7 +40,19 @@ public class Questions : ReadExcel
         sceneEffects = GetComponent<SceneEffects>();
         inGame = false;
         inDialogue = false;
-        ReadExcelDialogues(excelText, numRowExcel);
+        SetChangeLanguage();
+
+        if (changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelText[0], numRowExcel);
+        }
+
+        if (!changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelText[1], numRowExcel);
+        }
+
+        //ReadExcelDialogues(excelText, numRowExcel);
         currentQuestionTime = initialQuestionTime;
         DeactivateButtonQuestion();
     }
@@ -215,4 +229,9 @@ public class Questions : ReadExcel
         text.color = textColor;
     }
 
+    private bool SetChangeLanguage()
+    {
+        changeOriginalLanguage = changeLanguage.GetChangeLanguage();
+        return changeOriginalLanguage;
+    }
 }

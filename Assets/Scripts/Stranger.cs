@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.XR;
 using UnityEngine;
 
 public class Stranger : PeopleController
@@ -18,43 +19,58 @@ public class Stranger : PeopleController
     [SerializeField] private int numberRow;
     [SerializeField] private bool randomDialogue;
     [SerializeField] private int numRowInExcel;
-    [SerializeField] private TextAsset excelPhrases;
+    [SerializeField] private TextAsset[] excelPhrases;
     [SerializeField] private int lineIdexStarnger = 0;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip audioVoice;
-    private void Start()
+    [SerializeField] private ChangeLanguage changeLanguage;
+
+    [SerializeField] bool changeOriginalLanguage;
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         effects = GetComponent<SceneEffects>();
-        ReadExcelDialogues(excelPhrases, numRowInExcel);
+        SetChangeLanguage();
+        if (changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelPhrases[0], numRowInExcel);
+        }
+
+        if (!changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelPhrases[1], numRowInExcel);
+        }
+
         DictionaryRowsInExcel();
     }
 
     public void Update()
     {
+
+
         if (!moveStranger)
         {
             MoveRight();
 
         }
+
         if (transform.position == finalPosition.position)
         {
             moveStranger = true;
             ActivateQuestionSection();
             ActivateAnswerSection();
         }
+
         
-        SetIndexText();
+        SetIndexText();        
+        
         if (lineIdexStarnger < dictRowInExcel[numberRow].Length && textPeople.text == dictRowInExcel[numberRow][lineIdexStarnger] && transform.position == entryPoint.position)
         {
             ActivateButtonStranger(buttonNextDialogue);
         }
-        /*if (lineIdexStarnger == dictRowInExcel[numberRow].Length)
-        {
-            buttonNextDialogue.SetActive(false);
-        }*/
     }
+
     public void DialogueStranger()
     {
         if (lineIdexStarnger < dictRowInExcel[numberRow].Length && transform.position != finalPosition.position)
@@ -64,6 +80,7 @@ public class Stranger : PeopleController
             audioManager.PlayAudioClipButton();
         }
     }
+
     public void MoveRight()
     {
         if (lineIdexStarnger >= dictRowInExcel[numberRow].Length - 1)
@@ -74,18 +91,27 @@ public class Stranger : PeopleController
             buttonNextDialogue.SetActive(false);
         }
     }
+
     public void ActivateQuestionSection()
     {
         questionSection.SetActive(true);
     }
+
     public void ActivateAnswerSection()
     {
         answerSection.SetActive(true);
     }
+
     private int SetIndexText()
     {
         lineIdexStarnger = GetIndexText();
         return lineIdexStarnger;
+    }
+
+    private bool SetChangeLanguage()
+    {
+        changeOriginalLanguage = changeLanguage.GetChangeLanguage();
+        return changeOriginalLanguage;
     }
 
 }

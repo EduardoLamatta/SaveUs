@@ -14,7 +14,6 @@ public class PlayerResults : SceneEffects
     private float timeToFinishScene;
     private void Update()
     {
-        Debug.Log(counterTransformMonster);
         if (AnswerCounter.totalAnswer == 9)
         {
             PositionsPeopleToFinal();

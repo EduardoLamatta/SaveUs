@@ -13,7 +13,7 @@ public class TextAnswers : ButtonsAnswer
     [SerializeField] private Transform layoutButtons;
     [SerializeField] private Questions questions;
     [SerializeField] private GameObject buttonQuestion;
-    [SerializeField] private TextAsset excelText;
+    [SerializeField] private TextAsset[] excelText;
     [SerializeField] int numRowExcel;
     [SerializeField] public GameObject slider;
     [SerializeField] private float effectInterval;
@@ -24,13 +24,28 @@ public class TextAnswers : ButtonsAnswer
     private bool showAnswers;
     private bool allowEffectButtons;
     public bool finishEffectButtons;
-    
+    [SerializeField] bool changeOriginalLanguage;
+    [SerializeField] private ChangeLanguage changeLanguage;
+
     private void Start()
     {
         layoutButtons = gameObject.transform;
         DeactivateButtons(buttonsAnswers, questions);
         AddButtonChildren(buttonList, layoutButtons);
-        ReadExcelDialogues(excelText, numRowExcel);
+        //ReadExcelDialogues(excelText, numRowExcel);
+        SetChangeLanguage();
+
+        if (changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelText[0], numRowExcel);
+            Debug.Log("spanish");
+        }
+
+        if (!changeOriginalLanguage)
+        {
+            ReadExcelDialogues(excelText[1], numRowExcel);
+            Debug.Log("english");
+        }
     }
     private void Update()
     {
@@ -99,4 +114,9 @@ public class TextAnswers : ButtonsAnswer
         finishEffectButtons = false;
     }
 
+    private bool SetChangeLanguage()
+    {
+        changeOriginalLanguage = changeLanguage.GetChangeLanguage();
+        return changeOriginalLanguage;
+    }
 }
